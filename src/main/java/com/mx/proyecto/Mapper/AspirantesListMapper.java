@@ -9,7 +9,7 @@ public class AspirantesListMapper<T> implements RowMapper<Aspirantes> {
 	
 	public Aspirantes mapRow (ResultSet rs, int rowNum) throws SQLException {
 		Aspirantes objeto = new Aspirantes(); 
-		System.out.println("DB "+rs.getString("NOMBREALUMNO"));
+//		System.out.println("DB "+rs.getString("NOMBREALUMNO"));
 		objeto.setIdAlumno(rs.getBigDecimal("IDALUMNO")); 
 		objeto.setNombreAlumno(rs.getString("NOMBREALUMNO")); 
 		objeto.setEdad(rs.getInt ("EDAD")); 

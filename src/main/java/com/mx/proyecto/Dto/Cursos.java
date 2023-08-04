@@ -7,7 +7,7 @@ public class Cursos {
 	private String nombreCurso; 
 	private Integer duracionMeses;
 	private Date fechaInicio; 
-	private Integer curso;
+	private Integer cantidadAlumnos;
 	
 	public Integer getCursoId() {
 		return cursoId;
@@ -33,13 +33,10 @@ public class Cursos {
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	public Integer getCurso() {
-		return curso;
+	public Integer getCantidadAlumnos() {
+		return cantidadAlumnos;
 	}
-	public void setCurso(Integer curso) {
-		this.curso = curso;
+	public void setCantidadAlumnos(Integer cantidadAlumnos) {
+		this.cantidadAlumnos = cantidadAlumnos;
 	}
-	
-	
-	
 }
