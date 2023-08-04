@@ -28,10 +28,9 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 	@Override
 	public Integer insertAspirantes(Aspirantes nuevoAspirante) {
 		jdbcTemplate.setDataSource(getDataSource());
-		return jdbcTemplate.update("INSERT INTO ASPIRANTES (nombreAlumno, edad, fechaInscripcion,curso,maestro, cursoId, maestroId) "
-		+ "VALUES (?,?,?,?,?,?,?)",nuevoAspirante.getNombreAlumno() ,nuevoAspirante.getEdad(),
-		nuevoAspirante.getFechaInscripcion(), nuevoAspirante.getCurso(),
-		nuevoAspirante.getMaestro(), nuevoAspirante.getCursoId(), nuevoAspirante.getMaestroId());
+		return jdbcTemplate.update("INSERT INTO ASPIRANTES (nombreAlumno, edad, fechaInscripcion, cursoId, maestroId) "
+		+ "VALUES (?,?,?,?,?)",nuevoAspirante.getNombreAlumno() ,nuevoAspirante.getEdad(),
+		nuevoAspirante.getFechaInscripcion(),nuevoAspirante.getCursoId(), nuevoAspirante.getMaestroId());
 	}
 	
 	@Override

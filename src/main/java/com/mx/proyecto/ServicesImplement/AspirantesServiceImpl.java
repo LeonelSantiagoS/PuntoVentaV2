@@ -73,16 +73,6 @@ public class AspirantesServiceImpl implements AspirantesService {
 				mensajeError.append("El campo fechaInscripcion no puede ser NULL o Vacio. ");
 			}
 
-			// validamos que campo curso no sea nullo o vacio
-			if (nuevoAspirante.getCurso() == null || nuevoAspirante.getCurso().equals("")) {
-				mensajeError.append("El campo Curso no puede ser NULL o Vacio. ");
-			}
-			
-			// validamos que campo maestro no sea nullo o vacio
-			if (nuevoAspirante.getMaestro() == null || nuevoAspirante.getMaestro().equals("")) {
-				mensajeError.append("El campo Maestro no puede ser NULL o Vacio. ");
-			}
-
 			// validamos que todas cumplan los criterios para insertar
 //			if (!(nuevoAspirante.getNombreAlumno() == null || nuevoAspirante.getNombreAlumno().equals(""))
 //					&& (nuevoAspirante.getEdad() >= 0 && nuevoAspirante.getEdad() <= 999)

@@ -14,8 +14,8 @@ public class AspirantesListMapper<T> implements RowMapper<Aspirantes> {
 		objeto.setNombreAlumno(rs.getString("NOMBREALUMNO")); 
 		objeto.setEdad(rs.getInt ("EDAD")); 
 		objeto.setFechaInscripcion (rs.getDate("FECHAINSCRIPCION"));
-		objeto.setMaestro(rs.getString("MAESTRO")); 
-		objeto.setCurso(rs.getString("CURSO")); 
+//		objeto.setMaestro(rs.getString("MAESTRO")); 
+//		objeto.setCurso(rs.getString("CURSO")); 
 		return objeto;
 	}
 }
