@@ -21,6 +21,7 @@ public class AspirantesServiceImpl implements AspirantesService {
 		
 		try {
 			List<Aspirantes> lista = aspirantesRepository.getAspirantes();
+			
 			//System.out.println("Lista "+lista.get(1).getMaestro());
 			if(lista != null && lista.size()>0) {
 				response.setCode(0);
@@ -44,7 +45,7 @@ public class AspirantesServiceImpl implements AspirantesService {
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 			response.setCode(-4);
-			response.setMessage("Sucedio un error, Verifique los datos");
+			response.setMessage("Sucedio un error, Verifique los datos: "+e.getMessage());
 		}
 		
 		return response;

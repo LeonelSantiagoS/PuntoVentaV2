@@ -19,10 +19,15 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 
 	@Override
 	public List<Aspirantes> getAspirantes() {
-//		System.out.println("AspirantesRepositoryImpl");
-
 		jdbcTemplate.setDataSource(getDataSource());
-		return jdbcTemplate.query("SELECT * FROM ASPIRANTES", new AspirantesListMapper<Aspirantes>());
+		String sqlQuery = "SELECT ASP.IDALUMNO, ASP.NOMBREALUMNO, ASP.EDAD, ASP.FECHAINSCRIPCION, C.NOMBRE_CURSO, MT.NOMBRE_MAESTRO " +
+                "FROM ASPIRANTES ASP " + 
+				"JOIN CURSOS C ON ASP.CURSOID = C.CURSOID " + 
+                "JOIN MAESTROS MT ON ASP.MAESTROID = MT.MAESTROID";
+		
+//		return jdbcTemplate.query(sqlQuery, new AspirantesListMapper());
+		System.out.println(sqlQuery);
+		return jdbcTemplate.query(sqlQuery, new AspirantesListMapper());
 	}
 	
 	@Override
@@ -36,9 +41,8 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 	@Override
 	public Integer updateAspirantes(Aspirantes aspirante) {
 		jdbcTemplate.setDataSource(getDataSource());
-		return jdbcTemplate.update("UPDATE ASPIRANTES SET NOMBREALUMNO = ?, EDAD = ?, FECHAINSCRIPCION = ?, CURSO = ?,  MAESTRO = ? WHERE IDALUMNO = ?",
-				new Object[] {aspirante.getNombreAlumno(), aspirante.getEdad(), aspirante.getFechaInscripcion(), aspirante.getCurso(),
-						aspirante.getMaestro(), aspirante.getIdAlumno()});
+		return jdbcTemplate.update("UPDATE ASPIRANTES SET NOMBREALUMNO = ?, EDAD = ?, FECHAINSCRIPCION = ?  WHERE IDALUMNO = ?",
+				new Object[] {aspirante.getNombreAlumno(), aspirante.getEdad(), aspirante.getFechaInscripcion(), aspirante.getIdAlumno()});
 	}
 	
 	@Override

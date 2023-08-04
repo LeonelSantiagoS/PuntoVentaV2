@@ -3,17 +3,21 @@ package com.mx.proyecto.Dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Aspirantes {
 	
 	private BigDecimal idAlumno; 
 	private String nombreAlumno; 
 	private Integer edad;
-	private Date fechaInscripcion; 
-	private String curso; 
-	private String maestro; 
+	private Date fechaInscripcion;
 	private BigDecimal cursoId; 
 	private BigDecimal maestroId;
 	
+	 // Otras propiedades de Aspirantes
+    private Cursos curso;
+    private Maestros maestro;
 	
 	public BigDecimal getIdAlumno() {
 		return idAlumno;
@@ -39,18 +43,6 @@ public class Aspirantes {
 	public void setFechaInscripcion(Date fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
-	public String getCurso() {
-		return curso;
-	}
-	public void setCurso(String curso) {
-		this.curso = curso;
-	}
-	public String getMaestro() {
-		return maestro;
-	}
-	public void setMaestro(String maestro) {
-		this.maestro = maestro;
-	}
 	public BigDecimal getCursoId() {
 		return cursoId;
 	}
@@ -63,5 +55,20 @@ public class Aspirantes {
 	public void setMaestroId(BigDecimal maestroId) {
 		this.maestroId = maestroId;
 	}
+	
+	public Cursos getCurso() {
+		return curso;
+	}
+	public void setCurso(Cursos curso) {
+		this.curso = curso;
+	}
+	public Maestros getMaestro() {
+		return maestro;
+	}
+	public void setMaestro(Maestros maestro) {
+		this.maestro = maestro;
+	}
+	
+	
 	
 }
