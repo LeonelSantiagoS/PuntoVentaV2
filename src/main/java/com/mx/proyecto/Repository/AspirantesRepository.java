@@ -9,4 +9,5 @@ public interface AspirantesRepository {
 	Integer insertAspirantes(Aspirantes nuevoAspirante);
 	Integer updateAspirantes(Aspirantes aspirante);
 	Integer deleteAspirantes(Aspirantes aspirante);
+	int[][]  insertAspirantesMasivo(List<Aspirantes> aspirantes);
 }

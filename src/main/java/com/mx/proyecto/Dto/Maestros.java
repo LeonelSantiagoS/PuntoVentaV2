@@ -2,6 +2,9 @@ package com.mx.proyecto.Dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Maestros {
 	
 	private Integer maestroId; 

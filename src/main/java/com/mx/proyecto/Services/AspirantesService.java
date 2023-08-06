@@ -10,4 +10,5 @@ public interface AspirantesService {
 	ResponseDto insertAspirantes(Aspirantes nuevoAspirante);
 	ResponseDto updateAspirantes(Aspirantes aspirante);
 	ResponseDto deleteAspirantes(Aspirantes aspirante);
+	ResponseDto insertAspirantesMasivo(Aspirantes[] aspirantes);
 }

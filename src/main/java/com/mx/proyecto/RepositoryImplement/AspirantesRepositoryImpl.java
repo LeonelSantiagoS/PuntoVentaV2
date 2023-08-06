@@ -1,10 +1,14 @@
 package com.mx.proyecto.RepositoryImplement;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
+
 import com.mx.proyecto.Dto.Aspirantes;
 import com.mx.proyecto.Mapper.AspirantesListMapper;
 import com.mx.proyecto.Repository.AspirantesRepository;
@@ -50,6 +54,34 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 		jdbcTemplate.setDataSource(getDataSource());
 		return jdbcTemplate.update("DELETE FROM ASPIRANTES WHERE IDALUMNO = ? ", aspirante.getIdAlumno());
 	}
+	
+
+	@Override
+	public int[][]  insertAspirantesMasivo(List<Aspirantes> aspirantes){
+		jdbcTemplate.setDataSource(getDataSource());
+	
+		int[][] updateCounts=null;
+		try {
+		        updateCounts = jdbcTemplate.batchUpdate(
+		        	    "INSERT INTO ASPIRANTES (NOMBREALUMNO, EDAD,FECHAINSCRIPCION,CURSOID,MAESTROID) VALUES (?,?,SYSDATE,?,?)",
+		        	    aspirantes,
+		        	    100,
+		                new ParameterizedPreparedStatementSetter<Aspirantes>() {
+							@Override
+							public void setValues(PreparedStatement ps, Aspirantes argument) throws SQLException {
+								  ps.setString(1,argument.getNombreAlumno());
+				                  ps.setInt(2, argument.getEdad()); 
+				                  ps.setBigDecimal(3, argument.getCursoId()); 
+				                  ps.setBigDecimal(4, argument.getMaestroId()); 
+							}
+		                }
+		                );
+			}catch(org.springframework.dao.DuplicateKeyException DKE) {
+				System.out.println("EXECEPTION POR DATO DUPLICADO: "+DKE.getMessage()); 
+			}
+			  return updateCounts;
+	}
+
 
 	
 	public DataSource getDataSource() {
@@ -67,6 +99,7 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
 
 	
 	

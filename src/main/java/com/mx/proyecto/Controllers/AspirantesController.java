@@ -74,4 +74,18 @@ public class AspirantesController {
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
 	}
 	
+	
+	@ResponseBody // NOS PERMITE RETORNAR UNICAMENTE DATOS, Y NO UNA VISTA
+	@RequestMapping(value="/insertAspirantesMasivo", method = RequestMethod.POST, produces = "application/json") //
+	ResponseEntity < ResponseDto > insertAspirantesMasivo(@RequestBody Aspirantes[] aspirantes)
+	{
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		
+		ResponseDto response = new ResponseDto();
+		response = aspirantesService.insertAspirantesMasivo(aspirantes);
+		
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.mx.proyecto.ServicesImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -181,6 +182,24 @@ public class AspirantesServiceImpl implements AspirantesService {
 			response.setMessage("Sucedio un error, Verifique los datos: " + e.getMessage());
 		}
 
+		return response;
+	}
+
+	@Override
+	public ResponseDto insertAspirantesMasivo(Aspirantes[] aspirantes) {
+		ResponseDto response = new ResponseDto();
+		List<Aspirantes> aspirantesList = new ArrayList(); 
+		
+		for(Aspirantes aspirante : aspirantes) {
+			aspirantesList.add(aspirante); 
+		}
+		
+		aspirantesRepository.insertAspirantesMasivo(aspirantesList);
+		
+		response.setMessage("Se insertaron correctamente los "+aspirantesList.size()+" registros");
+		
+		
+		
 		return response;
 	}
 
