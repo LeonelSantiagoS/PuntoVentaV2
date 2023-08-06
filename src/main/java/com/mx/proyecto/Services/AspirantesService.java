@@ -1,7 +1,5 @@
 package com.mx.proyecto.Services;
 
-import java.util.List;
-
 import com.mx.proyecto.Dto.Aspirantes;
 import com.mx.proyecto.Dto.ResponseDto;
 

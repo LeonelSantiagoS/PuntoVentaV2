@@ -188,18 +188,12 @@ public class AspirantesServiceImpl implements AspirantesService {
 	@Override
 	public ResponseDto insertAspirantesMasivo(Aspirantes[] aspirantes) {
 		ResponseDto response = new ResponseDto();
-		List<Aspirantes> aspirantesList = new ArrayList(); 
-		
+		List<Aspirantes> aspirantesList = new ArrayList();
 		for(Aspirantes aspirante : aspirantes) {
 			aspirantesList.add(aspirante); 
 		}
-		
 		aspirantesRepository.insertAspirantesMasivo(aspirantesList);
-		
 		response.setMessage("Se insertaron correctamente los "+aspirantesList.size()+" registros");
-		
-		
-		
 		return response;
 	}
 
