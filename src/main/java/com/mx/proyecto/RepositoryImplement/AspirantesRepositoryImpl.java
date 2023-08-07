@@ -96,11 +96,17 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 	@Override
 	public List<Integer> getValidCursoIds(Aspirantes aspirante) {
 		jdbcTemplate.setDataSource(getDataSource());
-		
-	    List<Integer> validCursoIds = jdbcTemplate.queryForList(
-	        "SELECT CURSOID FROM CURSOS", Integer.class
-	    );
-	    return validCursoIds;
+
+		List<Integer> validCursoIds = jdbcTemplate.queryForList("SELECT CURSOID FROM CURSOS", Integer.class);
+		return validCursoIds;
+	}
+	
+	@Override
+	public List<Integer> getValidMaestroIds(Aspirantes aspirante) {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		List<Integer> validMaestroIds = jdbcTemplate.queryForList("SELECT MAESTROID FROM MAESTROS", Integer.class);
+		return validMaestroIds;
 	}
 	
 	public DataSource getDataSource() {

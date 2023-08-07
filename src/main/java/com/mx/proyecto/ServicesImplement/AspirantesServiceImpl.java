@@ -94,7 +94,22 @@ public class AspirantesServiceImpl implements AspirantesService {
 		        }
 		    }
 		    if (!cursoIdValido) {
-		    	mensajeError.append("Error -5 .El cursoId proporcionado no es válido. cursoId's disponibles: " + cursoIdList.toString());
+		    	mensajeError.append("(Error -5) El cursoId proporcionado no es válido. cursoId's disponibles: " + cursoIdList.toString()+". ");
+		    }
+		    
+		  //validar maestroID
+			List<Integer> maestroIdList =  aspirantesRepository.getValidMaestroIds(nuevoAspirante);
+			Integer maestroIdInteger = nuevoAspirante.getMaestroId().intValue(); // Convertir a Integer
+
+			boolean maestroIdValido = false;
+		    for (Integer maestroId : maestroIdList) {
+		    	if (maestroId.equals(maestroIdInteger)) {
+		    		maestroIdValido = true;
+		            break; // No es necesario seguir recorriendo si ya encontraste una coincidencia
+		        }
+		    }
+		    if (!maestroIdValido) {
+		    	mensajeError.append("(Error -6) El maestroId proporcionado no es válido. maestroId's disponibles: " + maestroIdList.toString() +". ");
 		    }
 			
 

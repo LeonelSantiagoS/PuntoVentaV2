@@ -11,5 +11,6 @@ public interface AspirantesRepository {
 	Integer deleteAspirantes(Aspirantes aspirante);
 	int[][]  insertAspirantesMasivo(List<Aspirantes> aspirantes);
 	List<Integer> getValidCursoIds(Aspirantes aspirante);
+	List<Integer> getValidMaestroIds(Aspirantes aspirante);
 	boolean cursoExists(Aspirantes aspirante);
 }
