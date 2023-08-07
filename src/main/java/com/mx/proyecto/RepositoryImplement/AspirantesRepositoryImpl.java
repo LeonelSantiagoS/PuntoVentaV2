@@ -81,8 +81,27 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 			}
 			  return updateCounts;
 	}
+	
+	@Override
+	public boolean cursoExists(Aspirantes aspirante) {
+		 jdbcTemplate.setDataSource(getDataSource());
 
-
+	        Integer count = jdbcTemplate.queryForObject(
+	            "SELECT COUNT(*) FROM CURSOS WHERE CURSOID = ?",
+	            Integer.class, aspirante.getCursoId()
+	        );
+	        return count != null && count > 0;
+	}
+	
+	@Override
+	public List<Integer> getValidCursoIds(Aspirantes aspirante) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+	    List<Integer> validCursoIds = jdbcTemplate.queryForList(
+	        "SELECT CURSOID FROM CURSOS", Integer.class
+	    );
+	    return validCursoIds;
+	}
 	
 	public DataSource getDataSource() {
 		return dataSource;
@@ -99,10 +118,4 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-
-	
-	
-
-	
 }

@@ -51,7 +51,7 @@ public class AspirantesServiceImpl implements AspirantesService {
 		
 		return response;
 	}
-
+	
 	@Override
 	public ResponseDto insertAspirantes(Aspirantes nuevoAspirante) {
 		ResponseDto response = new ResponseDto();
@@ -74,18 +74,30 @@ public class AspirantesServiceImpl implements AspirantesService {
 			if (nuevoAspirante.getFechaInscripcion() == null || nuevoAspirante.getFechaInscripcion().equals("")) {
 				mensajeError.append("El campo fechaInscripcion no puede ser NULL o Vacio. ");
 			}
-
-			// validamos que todas cumplan los criterios para insertar
-//			if (!(nuevoAspirante.getNombreAlumno() == null || nuevoAspirante.getNombreAlumno().equals(""))
-//					&& (nuevoAspirante.getEdad() >= 0 && nuevoAspirante.getEdad() <= 999)
-//					&& !(nuevoAspirante.getFechaInscripcion() == null || nuevoAspirante.getFechaInscripcion().equals(""))
-//					&& !(nuevoAspirante.getCurso() == null || nuevoAspirante.getCurso().equals(""))
-//					&& !(nuevoAspirante.getMaestro() == null || nuevoAspirante.getMaestro().equals(""))) {
-//
-//				respuesta =  aspirantesRepository.insertAspirantes(nuevoAspirante);
-//				
-//			}
 			
+			//validar cursoID opcion1
+//			boolean cursoIDExists = aspirantesRepository.cursoExists(nuevoAspirante);
+//			if (cursoIDExists == false) {
+//	            // Manejar el caso en que el curso no existe
+//				mensajeError.append("El cursoID no existe en la base datos");
+//	        }
+			
+			//validar cursoID opcion2
+			List<Integer> cursoIdList =  aspirantesRepository.getValidCursoIds(nuevoAspirante);
+			Integer cursoIdInteger = nuevoAspirante.getCursoId().intValue(); // Convertir a Integer
+
+			boolean cursoIdValido = false;
+		    for (Integer cursoId : cursoIdList) {
+		    	if (cursoId.equals(cursoIdInteger)) {
+		            cursoIdValido = true;
+		            break; // No es necesario seguir recorriendo si ya encontraste una coincidencia
+		        }
+		    }
+		    if (!cursoIdValido) {
+		    	mensajeError.append("Error -5 .El cursoId proporcionado no es válido. cursoId's disponibles: " + cursoIdList.toString());
+		    }
+			
+
 			// Verificar si hay errores en las validaciones
 			if (mensajeError.length() > 0) {
 				// Si hay errores, establecer el mensaje de error en el response
