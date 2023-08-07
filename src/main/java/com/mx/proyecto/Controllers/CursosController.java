@@ -64,12 +64,26 @@ public class CursosController {
 	// ELIMINA CURSOS - DELETE
 	@ResponseBody 
 	@RequestMapping(value="/deleteCursos", method = RequestMethod.DELETE, produces = "application/json") //
-	ResponseEntity < ResponseDto > deleteAspirantes(@RequestBody Cursos curso)
+	ResponseEntity < ResponseDto > deleteCursos(@RequestBody Cursos curso)
 	{
 		final HttpHeaders httpHeaders = new HttpHeaders();
 		
 		ResponseDto response = new ResponseDto();
 		response = cursosService.deleteCursos(curso);
+		
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
+	}
+	
+	// INSERCION MASIVA DE CURSOS - POST
+	@ResponseBody
+	@RequestMapping(value="/insertCursosMasivo", method = RequestMethod.POST, produces = "application/json") //
+	ResponseEntity < ResponseDto > insertCursosMasivo(@RequestBody Cursos[] cursos)
+	{
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		
+		ResponseDto response = new ResponseDto();
+		response = cursosService.insertCursosMasivo(cursos);
 		
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);

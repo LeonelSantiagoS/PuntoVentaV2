@@ -1,11 +1,14 @@
 package com.mx.proyecto.RepositoryImplement;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.mx.proyecto.Dto.Cursos;
@@ -52,8 +55,24 @@ public class CursosRepositoryImpl implements CursosRepository{
 
 	@Override
 	public int[][] insertCursosMasivo(List<Cursos> cursos) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+
+		int[][] updateCounts = null;
+		try {
+			updateCounts = jdbcTemplate.batchUpdate(
+					"INSERT INTO CURSOS (NOMBRE_CURSO, DURACION_MESES,FECHA_INICIO,CANTIDAD_ALUMNOS) VALUES (?,?,SYSDATE,?)",
+					cursos, 100, new ParameterizedPreparedStatementSetter<Cursos>() {
+						@Override
+						public void setValues(PreparedStatement ps, Cursos argument) throws SQLException {
+							ps.setString(1, argument.getNombreCurso());
+							ps.setInt(2, argument.getDuracionMeses());
+							ps.setInt(3, argument.getCantidadAlumnos());
+						}
+					});
+		} catch (org.springframework.dao.DuplicateKeyException DKE) {
+			System.out.println("EXECEPTION POR DATO DUPLICADO: " + DKE.getMessage());
+		}
+		return updateCounts;
 	}
 
 	public DataSource getDataSource() {

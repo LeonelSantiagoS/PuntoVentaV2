@@ -1,5 +1,6 @@
 package com.mx.proyecto.ServicesImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,8 +164,16 @@ public class CursosServiceImpl implements CursosService{
 
 	@Override
 	public ResponseDto insertCursosMasivo(Cursos[] cursos) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		ResponseDto response = new ResponseDto();
+		List<Cursos> cursosList = new ArrayList(); 
+		
+		for(Cursos aspirante : cursos) {
+			cursosList.add(aspirante); 
+		}
+		cursoRepository.insertCursosMasivo(cursosList);
+		
+		response.setMessage("Se insertaron correctamente los "+cursosList.size()+" registros");
+		return response;
 	}
 
 }
