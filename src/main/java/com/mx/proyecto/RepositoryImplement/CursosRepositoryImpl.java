@@ -29,8 +29,11 @@ public class CursosRepositoryImpl implements CursosRepository{
 
 	@Override
 	public Integer insertCursos(Cursos nuevoCurso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+		String sqlQuery = "INSERT INTO CURSOS (NOMBRE_CURSO, DURACION_MESES, FECHA_INICIO, CANTIDAD_ALUMNOS) "
+				+ "VALUES (?,?,?,?)";
+		return jdbcTemplate.update(sqlQuery, nuevoCurso.getNombreCurso(), nuevoCurso.getDuracionMeses(), nuevoCurso.getFechaInicio(),
+				nuevoCurso.getCantidadAlumnos());
 	}
 
 	@Override

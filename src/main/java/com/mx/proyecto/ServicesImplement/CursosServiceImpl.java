@@ -49,8 +49,52 @@ public class CursosServiceImpl implements CursosService{
 
 	@Override
 	public ResponseDto insertCursos(Cursos nuevoCurso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		ResponseDto response = new ResponseDto();
+		StringBuilder mensajeError = new StringBuilder();
+		Integer respuesta = 0;
+		try {
+			
+			// validamos que campo nombrealumno no sea nullo o vacio
+			if(nuevoCurso.getNombreCurso() == null  || nuevoCurso.getNombreCurso().equals("")) {
+				mensajeError.append("El campo NombreCurso no puede ser NULL o Vacio. ");
+			}
+
+			// validamos que campo sea valido o igual a un mes
+			if (!(nuevoCurso.getDuracionMeses() >= 0 && nuevoCurso.getDuracionMeses() <= 12)) {
+				mensajeError.append("El campo DuracionMeses no puede contener un valor mayor a 3 cifras. ");
+			}
+			
+			// validamos que campo fechaInscripcion no sea nullo o vacio
+			if (nuevoCurso.getFechaInicio() == null || nuevoCurso.getFechaInicio().equals("")) {
+				mensajeError.append("El campo FechaInicio no puede ser NULL o Vacio. ");
+			}
+
+			// Verificar si hay errores en las validaciones
+			if (mensajeError.length() > 0) {
+				// Si hay errores, establecer el mensaje de error en el response
+				response.setMessage(mensajeError.toString());
+			}else {
+				respuesta = cursoRepository.insertCursos(nuevoCurso);
+			}
+			
+
+			if (respuesta == 1) {
+				response.setCode(0);
+				response.setMessage("Se inserto correctamente");
+			}else {
+				response.setCode(-1);
+			}
+				
+		}
+		catch (IndexOutOfBoundsException Eindex) {
+			response.setCode(-3);
+			response.setMessage("La lista esta vacia o el indice no existe.");
+        }
+		catch(Exception e) {
+			response.setCode(-4);
+			response.setMessage("Sucedio un error, Verifique los datos: "+e.getMessage());
+		}
+		return response;
 	}
 
 	@Override

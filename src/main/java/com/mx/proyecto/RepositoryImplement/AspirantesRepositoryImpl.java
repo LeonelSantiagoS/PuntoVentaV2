@@ -30,7 +30,7 @@ public class AspirantesRepositoryImpl implements AspirantesRepository{
                 "JOIN MAESTROS MT ON ASP.MAESTROID = MT.MAESTROID";
 		
 //		return jdbcTemplate.query(sqlQuery, new AspirantesListMapper());
-		System.out.println(sqlQuery);
+//		System.out.println(sqlQuery);
 		return jdbcTemplate.query(sqlQuery, new AspirantesListMapper());
 	}
 	
