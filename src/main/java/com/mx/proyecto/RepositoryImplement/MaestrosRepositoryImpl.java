@@ -1,13 +1,17 @@
 package com.mx.proyecto.RepositoryImplement;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
-
+import java.sql.Date;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
+import com.mx.proyecto.Dto.Cursos;
 import com.mx.proyecto.Dto.Maestros;
 import com.mx.proyecto.Mapper.MaestrosListMapper;
 import com.mx.proyecto.Repository.MaestrosRepository;
@@ -52,8 +56,26 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 
 	@Override
 	public int[][] insertMaestrosMasivo(List<Maestros> maestros) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+
+		int[][] updateCounts = null;
+		try {
+			updateCounts = jdbcTemplate.batchUpdate(
+					"INSERT INTO MAESTROS (NOMBRE_MAESTRO, EDAD,FECHA_NACIMIENTO,NUMERO_CURSOS) VALUES (?,?,?,?)",
+					maestros, 100, new ParameterizedPreparedStatementSetter<Maestros>() {
+						@Override
+						public void setValues(PreparedStatement ps, Maestros argument) throws SQLException {
+							ps.setString(1, argument.getNombreMaestro());
+							ps.setInt(2, argument.getEdad());
+							ps.setDate(3, new java.sql.Date(argument.getFechaNacimiento().getTime()));
+							//ps.setDate(3, argument.getFechaNacimiento());
+							ps.setInt(4, argument.getNumeroCursos());
+						}
+					});
+		} catch (org.springframework.dao.DuplicateKeyException DKE) {
+			System.out.println("EXECEPTION POR DATO DUPLICADO: " + DKE.getMessage());
+		}
+		return updateCounts;
 	}
 
 	public DataSource getDataSource() {

@@ -167,8 +167,8 @@ public class CursosServiceImpl implements CursosService{
 		ResponseDto response = new ResponseDto();
 		List<Cursos> cursosList = new ArrayList(); 
 		
-		for(Cursos aspirante : cursos) {
-			cursosList.add(aspirante); 
+		for(Cursos curso : cursos) {
+			cursosList.add(curso); 
 		}
 		cursoRepository.insertCursosMasivo(cursosList);
 		

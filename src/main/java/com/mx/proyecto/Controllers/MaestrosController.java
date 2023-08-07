@@ -70,4 +70,14 @@ public class MaestrosController {
 		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
 	}
 
+	// INSERCION MASIVA DE MAESTROS - POST
+	@ResponseBody
+	@RequestMapping(value = "/insertMaestrosMasivo", method = RequestMethod.POST, produces = "application/json") //
+	ResponseEntity<ResponseDto> insertMaestrosMasivo(@RequestBody Maestros[] maestros) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		ResponseDto response = new ResponseDto();
+		response = maestrosService.insertMaestrosMasivo(maestros);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
+	}
 }

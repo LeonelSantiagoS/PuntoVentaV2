@@ -88,6 +88,4 @@ public class CursosController {
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
 	}
-	
-
 }

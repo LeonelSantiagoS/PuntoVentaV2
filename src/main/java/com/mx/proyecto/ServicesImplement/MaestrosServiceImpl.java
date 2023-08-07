@@ -1,10 +1,12 @@
 package com.mx.proyecto.ServicesImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mx.proyecto.Dto.Cursos;
 import com.mx.proyecto.Dto.Maestros;
 import com.mx.proyecto.Dto.ResponseDto;
 import com.mx.proyecto.Repository.MaestrosRepository;
@@ -164,8 +166,16 @@ public class MaestrosServiceImpl implements MaestrosService{
 
 	@Override
 	public ResponseDto insertMaestrosMasivo(Maestros[] maestros) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
-	}
+		ResponseDto response = new ResponseDto();
+		List<Maestros> maestrosList = new ArrayList();
 
+		for (Maestros maestro : maestros) {
+			maestrosList.add(maestro);
+		}
+		
+		maestrosRepository.insertMaestrosMasivo(maestrosList);
+
+		response.setMessage("Se insertaron correctamente los " + maestrosList.size() + " registros");
+		return response;
+	}
 }
