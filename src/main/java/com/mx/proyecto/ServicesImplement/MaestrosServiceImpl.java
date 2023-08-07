@@ -133,8 +133,33 @@ public class MaestrosServiceImpl implements MaestrosService{
 
 	@Override
 	public ResponseDto deleteMaestros(Maestros maestro) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		ResponseDto response = new ResponseDto();
+		Integer respuesta = 0;
+
+		try {
+			respuesta = maestrosRepository.deleteMaestros(maestro);
+
+			if (respuesta == 1) {
+				response.setCode(0);
+				response.setMessage("Se elimino correctamente " + respuesta + " registro (s)");
+			} else {
+				response.setCode(-1);
+				response.setMessage("Error: No se elimino correctamente");
+			}
+
+		} catch (NullPointerException NPE) {
+			System.out.println(NPE.getMessage());
+			response.setCode(-2);
+			response.setMessage("No existen registros en la Tabla Aspirantes");
+		} catch (IndexOutOfBoundsException Eindex) {
+			response.setCode(-3);
+			response.setMessage("La lista esta vacia o el indice no existe.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			response.setCode(-4);
+			response.setMessage("Sucedio un error, Verifique los datos: " + e.getMessage());
+		}
+		return response;
 	}
 
 	@Override

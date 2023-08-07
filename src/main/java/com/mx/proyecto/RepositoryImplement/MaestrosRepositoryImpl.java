@@ -46,8 +46,8 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 
 	@Override
 	public Integer deleteMaestros(Maestros maestro) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+		return jdbcTemplate.update("DELETE FROM MAESTROS WHERE MAESTROID = ? ", maestro.getMaestroId());
 	}
 
 	@Override

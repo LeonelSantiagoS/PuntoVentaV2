@@ -8,6 +8,6 @@ public interface MaestrosRepository {
 	List<Maestros> getMaestros();
 	Integer insertMaestros(Maestros nuevoMaestro);
 	Integer updateMaestros(Maestros maestro);
-	Integer deleteMaestros(Maestros maestross);
+	Integer deleteMaestros(Maestros maestro);
 	int[][]  insertMaestrosMasivo(List<Maestros> maestros);
 }

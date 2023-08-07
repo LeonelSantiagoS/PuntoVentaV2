@@ -49,14 +49,25 @@ public class MaestrosController {
 	}
 	
 	// ACTUALIZA MAESTROS - PUT
-		@ResponseBody 
-		@RequestMapping(value="/updateMaestros", method = RequestMethod.PUT, produces = "application/json") //
-		ResponseEntity < ResponseDto > updateMaestros(@RequestBody Maestros maestro)
-		{
-			final HttpHeaders httpHeaders = new HttpHeaders();
-			ResponseDto response = new ResponseDto();
-			response = maestrosService.updateMaestros(maestro);
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
-		}
+	@ResponseBody
+	@RequestMapping(value = "/updateMaestros", method = RequestMethod.PUT, produces = "application/json") //
+	ResponseEntity<ResponseDto> updateMaestros(@RequestBody Maestros maestro) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		ResponseDto response = new ResponseDto();
+		response = maestrosService.updateMaestros(maestro);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
+	}
+
+	// ELIMINA MAESTROS - DELETE
+	@ResponseBody
+	@RequestMapping(value = "/deleteMaestros", method = RequestMethod.DELETE, produces = "application/json") //
+	ResponseEntity<ResponseDto> deleteMaestros(@RequestBody Maestros maestro) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		ResponseDto response = new ResponseDto();
+		response = maestrosService.deleteMaestros(maestro);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
+	}
+
 }
