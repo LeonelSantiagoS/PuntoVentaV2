@@ -29,8 +29,11 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 
 	@Override
 	public Integer insertMaestros(Maestros nuevoCurso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+		String sqlQuery = "INSERT INTO MAESTROS (NOMBRE_MAESTRO, EDAD, FECHA_NACIMIENTO, NUMERO_CURSOS)"
+				+ "VALUES (?,?,?,?)";
+		return jdbcTemplate.update(sqlQuery, nuevoCurso.getNombreMaestro(), nuevoCurso.getEdad(), nuevoCurso.getFechaNacimiento(),
+				nuevoCurso.getNumeroCursos());
 	}
 
 	@Override
