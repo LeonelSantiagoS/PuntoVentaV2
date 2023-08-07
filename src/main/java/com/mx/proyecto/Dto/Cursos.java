@@ -11,7 +11,7 @@ public class Cursos {
 	private Integer duracionMeses;
 	private Date fechaInicio; 
 	private Integer cantidadAlumnos;
-	
+
 	public Integer getCursoId() {
 		return cursoId;
 	}

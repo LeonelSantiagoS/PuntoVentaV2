@@ -21,7 +21,7 @@ public class CursosController {
 	@Autowired
 	private CursosService cursosService;
 	
-	//CONSULTA ASPIRANTES - GET 
+	//CONSULTA CURSOS - GET 
 	@ResponseBody
 	@RequestMapping(value="/getCursos", method = RequestMethod.GET, produces = "application/json") //
 	ResponseEntity < ResponseDto > getAspirantes()
@@ -35,7 +35,7 @@ public class CursosController {
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
 	}
 	
-	// INSERTA ASPIRANTES - POST
+	// INSERTA CURSOS - POST
 	@ResponseBody
 	@RequestMapping(value="/insertCursos", method = RequestMethod.POST, produces = "application/json") //
 	ResponseEntity < ResponseDto > insertCursos(@RequestBody Cursos nuevoCurso)
@@ -48,5 +48,20 @@ public class CursosController {
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
 	}
+	
+	// ACTUALIZA CURSOS - PUT
+	@ResponseBody 
+	@RequestMapping(value="/updateCursos", method = RequestMethod.PUT, produces = "application/json") //
+	ResponseEntity < ResponseDto > updateAspirantes(@RequestBody Cursos curso)
+	{
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		
+		ResponseDto response = new ResponseDto();
+		response = cursosService.updateCursos(curso);
+		
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
+	}
+	
 
 }

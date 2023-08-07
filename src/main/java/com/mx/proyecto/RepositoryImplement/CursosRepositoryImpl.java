@@ -38,8 +38,10 @@ public class CursosRepositoryImpl implements CursosRepository{
 
 	@Override
 	public Integer updateCursoss(Cursos curso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+		String sqlQuery = "UPDATE CURSOS SET NOMBRE_CURSO = ?, DURACION_MESES = ?, FECHA_INICIO = ?, CANTIDAD_ALUMNOS = ? WHERE CURSOID = ?";
+		return jdbcTemplate.update(sqlQuery,
+			new Object[] {curso.getNombreCurso(), curso.getDuracionMeses(), curso.getFechaInicio(), curso.getCantidadAlumnos(), curso.getCursoId()});
 	}
 
 	@Override
