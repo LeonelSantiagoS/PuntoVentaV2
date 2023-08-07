@@ -24,7 +24,7 @@ public class CursosController {
 	//CONSULTA CURSOS - GET 
 	@ResponseBody
 	@RequestMapping(value="/getCursos", method = RequestMethod.GET, produces = "application/json") //
-	ResponseEntity < ResponseDto > getAspirantes()
+	ResponseEntity < ResponseDto > getCursos()
 	{
 		final HttpHeaders httpHeaders = new HttpHeaders();
 		
