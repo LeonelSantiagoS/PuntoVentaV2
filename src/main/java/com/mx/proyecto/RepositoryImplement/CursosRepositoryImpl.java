@@ -46,8 +46,8 @@ public class CursosRepositoryImpl implements CursosRepository{
 
 	@Override
 	public Integer deleteCursos(Cursos curso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+		jdbcTemplate.setDataSource(getDataSource());
+		return jdbcTemplate.update("DELETE FROM CURSOS WHERE CURSOID = ? ", curso.getCursoId());
 	}
 
 	@Override

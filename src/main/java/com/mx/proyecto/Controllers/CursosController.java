@@ -55,9 +55,21 @@ public class CursosController {
 	ResponseEntity < ResponseDto > updateAspirantes(@RequestBody Cursos curso)
 	{
 		final HttpHeaders httpHeaders = new HttpHeaders();
-		
 		ResponseDto response = new ResponseDto();
 		response = cursosService.updateCursos(curso);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
+	}
+	
+	// ELIMINA CURSOS - DELETE
+	@ResponseBody 
+	@RequestMapping(value="/deleteCursos", method = RequestMethod.DELETE, produces = "application/json") //
+	ResponseEntity < ResponseDto > deleteAspirantes(@RequestBody Cursos curso)
+	{
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		
+		ResponseDto response = new ResponseDto();
+		response = cursosService.deleteCursos(curso);
 		
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
