@@ -6,8 +6,8 @@ import com.mx.proyecto.Dto.Maestros;
 
 public interface MaestrosRepository {
 	List<Maestros> getMaestros();
-	Integer insertMaestros(Maestros nuevoCurso);
-	Integer updateMaestros(Maestros curso);
-	Integer deleteMaestros(Maestros curso);
+	Integer insertMaestros(Maestros nuevoMaestro);
+	Integer updateMaestros(Maestros maestro);
+	Integer deleteMaestros(Maestros maestross);
 	int[][]  insertMaestrosMasivo(List<Maestros> maestros);
 }

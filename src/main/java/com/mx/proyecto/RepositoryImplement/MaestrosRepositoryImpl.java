@@ -28,22 +28,24 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 	}
 
 	@Override
-	public Integer insertMaestros(Maestros nuevoCurso) {
+	public Integer insertMaestros(Maestros nuevoMaestro) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String sqlQuery = "INSERT INTO MAESTROS (NOMBRE_MAESTRO, EDAD, FECHA_NACIMIENTO, NUMERO_CURSOS)"
 				+ "VALUES (?,?,?,?)";
-		return jdbcTemplate.update(sqlQuery, nuevoCurso.getNombreMaestro(), nuevoCurso.getEdad(), nuevoCurso.getFechaNacimiento(),
-				nuevoCurso.getNumeroCursos());
+		return jdbcTemplate.update(sqlQuery, nuevoMaestro.getNombreMaestro(), nuevoMaestro.getEdad(), nuevoMaestro.getFechaNacimiento(),
+				nuevoMaestro.getNumeroCursos());
 	}
 
 	@Override
-	public Integer updateMaestros(Maestros curso) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+	public Integer updateMaestros(Maestros maestro) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String sqlQuery = "UPDATE MAESTROS SET NOMBRE_MAESTRO = ?, EDAD = ?, FECHA_NACIMIENTO = ?, NUMERO_CURSOS = ? WHERE MAESTROID = ?";
+		return jdbcTemplate.update(sqlQuery, new Object[] {  maestro.getNombreMaestro(), maestro.getEdad(), maestro.getFechaNacimiento(),
+				maestro.getNumeroCursos(), maestro.getMaestroId() });
 	}
 
 	@Override
-	public Integer deleteMaestros(Maestros curso) {
+	public Integer deleteMaestros(Maestros maestro) {
 		// TODO Esbozo de método generado automáticamente
 		return null;
 	}
