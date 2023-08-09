@@ -27,7 +27,7 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 	@Override
 	public List<Maestros> getMaestros() {
 		jdbcTemplate.setDataSource(getDataSource());
-		String sqlQuery = "SELECT * FROM MAESTROS";
+		String sqlQuery = "SELECT * FROM MAESTROS WHERE ACTIVO = 1";
 		return jdbcTemplate.query(sqlQuery, new MaestrosListMapper<Maestros>());
 	}
 
