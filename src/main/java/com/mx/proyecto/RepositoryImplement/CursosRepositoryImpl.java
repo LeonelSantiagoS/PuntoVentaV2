@@ -79,7 +79,15 @@ public class CursosRepositoryImpl implements CursosRepository{
 		}
 		return updateCounts;
 	}
-
+	
+	@Override
+	public Integer existeCursoNombre(Cursos curso) {
+		Integer count = 0;
+		jdbcTemplate.setDataSource(getDataSource());
+	    String sqlQuery = "SELECT COUNT(*) FROM CURSOS WHERE NOMBRE_CURSO = ?";
+		return count = jdbcTemplate.queryForObject(sqlQuery, Integer.class, curso.getNombreCurso());
+	}
+	
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -95,4 +103,5 @@ public class CursosRepositoryImpl implements CursosRepository{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
 }

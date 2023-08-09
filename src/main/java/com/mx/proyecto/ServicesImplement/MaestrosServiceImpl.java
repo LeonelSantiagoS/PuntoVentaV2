@@ -53,10 +53,18 @@ public class MaestrosServiceImpl implements MaestrosService{
 		ResponseDto response = new ResponseDto();
 		StringBuilder mensajeError = new StringBuilder();
 		Integer respuesta = 0;
+		Integer cantidadMaestros = 0;
 		try {
-			// validamos que campo nombrealumno no sea nullo o vacio
+			// validamos que campo nombreMaestro no sea nullo o vacio
 			if(nuevoMaestro.getNombreMaestro() == null  || nuevoMaestro.getNombreMaestro().equals("")) {
-				mensajeError.append("El campo NombreCurso no puede ser NULL o Vacio. ");
+				mensajeError.append("El campo nombreMaestro no puede ser NULL o Vacio. ");
+			}
+			else {
+				// Verificamos si ya existe un registro con el mismo nombre
+				cantidadMaestros = maestrosRepository.existeMaestroNombre(nuevoMaestro);
+	            if (cantidadMaestros > 0) {
+	                mensajeError.append("!!NO SE PUEDEN DUPLICAR REGISTROS!! Ya existe el Maestro: ["+nuevoMaestro.getNombreMaestro()+"]. ");
+	            }
 			}
 
 			// validamos que campo sea valido o igual a un mes

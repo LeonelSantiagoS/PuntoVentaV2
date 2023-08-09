@@ -53,11 +53,18 @@ public class CursosServiceImpl implements CursosService{
 		ResponseDto response = new ResponseDto();
 		StringBuilder mensajeError = new StringBuilder();
 		Integer respuesta = 0;
+		Integer cantidadCursos = 0;
 		try {
-			
-			// validamos que campo nombrealumno no sea nullo o vacio
+			// validamos que campo NombreCurso no sea nullo o vacio
 			if(nuevoCurso.getNombreCurso() == null  || nuevoCurso.getNombreCurso().equals("")) {
 				mensajeError.append("El campo NombreCurso no puede ser NULL o Vacio. ");
+			}
+			else {
+				// Verificamos si ya existe un registro con el mismo nombre
+				cantidadCursos = cursoRepository.existeCursoNombre(nuevoCurso);
+	            if (cantidadCursos > 0) {
+	                mensajeError.append("!!NO SE PUEDEN DUPLICAR REGISTROS!! Ya existe el curso ["+nuevoCurso.getNombreCurso()+"]. ");
+	            }
 			}
 
 			// validamos que campo sea valido o igual a un mes
@@ -70,11 +77,16 @@ public class CursosServiceImpl implements CursosService{
 				mensajeError.append("El campo FechaInicio no puede ser NULL o Vacio. ");
 			}
 
+			// validamos que campo cantidadAlumnos no sea nullo o vacio
+			if (nuevoCurso.getCantidadAlumnos() == null || nuevoCurso.getCantidadAlumnos().equals("")) {
+				mensajeError.append("El campo cantidadAlumnos no puede ser NULL o Vacio. ");
+			}
+
 			// Verificar si hay errores en las validaciones
 			if (mensajeError.length() > 0) {
 				// Si hay errores, establecer el mensaje de error en el response
 				response.setMessage(mensajeError.toString());
-			}else {
+			} else {
 				respuesta = cursoRepository.insertCursos(nuevoCurso);
 			}
 			

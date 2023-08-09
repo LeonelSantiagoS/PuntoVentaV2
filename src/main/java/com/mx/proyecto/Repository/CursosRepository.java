@@ -11,5 +11,6 @@ public interface CursosRepository {
 	Integer updateCursoss(Cursos curso);
 	Integer deleteCursos(Cursos curso);
 	Integer inactivaCursos(Cursos curso);
+	Integer existeCursoNombre(Cursos curso);
 	int[][]  insertCursosMasivo(List<Cursos> cursos);
 }

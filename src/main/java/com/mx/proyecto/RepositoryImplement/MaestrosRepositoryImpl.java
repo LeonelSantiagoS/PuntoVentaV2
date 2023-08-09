@@ -83,6 +83,14 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 		}
 		return updateCounts;
 	}
+	
+	@Override
+	public Integer existeMaestroNombre(Maestros maestro) {
+		Integer count = 0;
+		jdbcTemplate.setDataSource(getDataSource());
+	    String sqlQuery = "SELECT COUNT(*) FROM MAESTROS WHERE NOMBRE_MAESTRO = ?";
+		return count = jdbcTemplate.queryForObject(sqlQuery, Integer.class, maestro.getNombreMaestro());
+	}
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -98,7 +106,5 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-	}
-
-	
+	}	
 }
