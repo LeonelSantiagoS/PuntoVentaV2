@@ -53,6 +53,12 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 		jdbcTemplate.setDataSource(getDataSource());
 		return jdbcTemplate.update("DELETE FROM MAESTROS WHERE MAESTROID = ? ", maestro.getMaestroId());
 	}
+	
+	@Override
+	public Integer inactivaMaestro(Maestros maestro) {
+		jdbcTemplate.setDataSource(getDataSource());
+		 return jdbcTemplate.update("UPDATE MAESTROS SET ACTIVO = 0 WHERE MAESTROID = ?", maestro.getMaestroId());
+	}
 
 	@Override
 	public int[][] insertMaestrosMasivo(List<Maestros> maestros) {
@@ -93,4 +99,6 @@ public class MaestrosRepositoryImpl implements MaestrosRepository{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
+	
 }

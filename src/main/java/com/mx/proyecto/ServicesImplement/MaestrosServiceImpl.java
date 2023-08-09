@@ -139,7 +139,8 @@ public class MaestrosServiceImpl implements MaestrosService{
 		Integer respuesta = 0;
 
 		try {
-			respuesta = maestrosRepository.deleteMaestros(maestro);
+			//respuesta = maestrosRepository.deleteMaestros(maestro);
+			respuesta = maestrosRepository.inactivaMaestro(maestro);
 
 			if (respuesta == 1) {
 				response.setCode(0);

@@ -62,7 +62,7 @@ public class CursosServiceImpl implements CursosService{
 
 			// validamos que campo sea valido o igual a un mes
 			if (!(nuevoCurso.getDuracionMeses() >= 0 && nuevoCurso.getDuracionMeses() <= 12)) {
-				mensajeError.append("El campo DuracionMeses no puede contener un valor mayor a 3 cifras. ");
+				mensajeError.append("El campo DuracionMeses no puede contener un valor mayor a 12. ");
 			}
 			
 			// validamos que campo fechaInscripcion no sea nullo o vacio
