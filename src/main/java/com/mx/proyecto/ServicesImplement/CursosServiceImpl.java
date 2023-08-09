@@ -136,7 +136,8 @@ public class CursosServiceImpl implements CursosService{
 		Integer respuesta = 0;
 
 		try {
-			respuesta = cursoRepository.deleteCursos(curso);
+			//respuesta = cursoRepository.deleteCursos(curso);
+			respuesta = cursoRepository.inactivaCursos(curso);
 
 			if (respuesta == 1) {
 				response.setCode(0);

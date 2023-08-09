@@ -25,8 +25,7 @@ public class CursosRepositoryImpl implements CursosRepository{
 	@Override
 	public List<Cursos> getCursos() {
 		jdbcTemplate.setDataSource(getDataSource());
-		String sqlQuery = "SELECT * " +
-                "FROM CURSOS";
+		String sqlQuery = "SELECT * FROM CURSOS WHERE ACTIVO = 1";
 		return jdbcTemplate.query(sqlQuery, new CursosListMapper<Cursos>());
 	}
 
@@ -51,6 +50,12 @@ public class CursosRepositoryImpl implements CursosRepository{
 	public Integer deleteCursos(Cursos curso) {
 		jdbcTemplate.setDataSource(getDataSource());
 		return jdbcTemplate.update("DELETE FROM CURSOS WHERE CURSOID = ? ", curso.getCursoId());
+	}
+	
+	@Override
+	public Integer inactivaCursos(Cursos curso) {
+		jdbcTemplate.setDataSource(getDataSource());
+		return jdbcTemplate.update("UPDATE CURSOS SET ACTIVO = 0 WHERE CURSOID = ?", curso.getCursoId());
 	}
 
 	@Override
