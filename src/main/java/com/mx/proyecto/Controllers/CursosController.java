@@ -88,4 +88,17 @@ public class CursosController {
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity <ResponseDto> (response, httpHeaders, HttpStatus.OK);
 	}
+
+	// INSERCION MASIVA DE CURSOS - CON ARCHIVO
+	@ResponseBody
+	@RequestMapping(value = "/insertCursosMasivoByFile", method = RequestMethod.GET, produces = "application/json") //
+	ResponseEntity<ResponseDto> insertCursosMasivoByFile() {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+
+		ResponseDto response = new ResponseDto();
+		response = cursosService.insertCursosMasivoByFile();
+
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
+	}
 }

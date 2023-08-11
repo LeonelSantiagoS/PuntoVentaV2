@@ -9,5 +9,5 @@ public interface CursosService {
 	ResponseDto updateCursos(Cursos curso);
 	ResponseDto deleteCursos(Cursos curso);
 	ResponseDto insertCursosMasivo(Cursos[] cursos);
-
+	ResponseDto insertCursosMasivoByFile();
 }

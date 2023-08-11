@@ -10,6 +10,7 @@ import com.mx.proyecto.Dto.Cursos;
 import com.mx.proyecto.Dto.ResponseDto;
 import com.mx.proyecto.Repository.CursosRepository;
 import com.mx.proyecto.Services.CursosService;
+import com.mx.proyecto.Util.Util;
 
 @Service
 public class CursosServiceImpl implements CursosService{
@@ -186,6 +187,19 @@ public class CursosServiceImpl implements CursosService{
 		cursoRepository.insertCursosMasivo(cursosList);
 		
 		response.setMessage("Se insertaron correctamente los "+cursosList.size()+" registros");
+		return response;
+	}
+
+	@Override
+	public ResponseDto insertCursosMasivoByFile() {
+		Util llamar = new Util();
+		ResponseDto response = new ResponseDto();
+		List<Cursos> cursosList = llamar.leerArchivoCurso();
+		
+		cursoRepository.insertCursosMasivo(cursosList);
+
+		response.setMessage("Se insertaron correctamente los " + cursosList.size() + " registros");
+		
 		return response;
 	}
 
