@@ -29,6 +29,7 @@ public class Util {
 		
 		try {
 			// Obtencion de archivo
+			// home/work/dist/trabajo/archivoCursos/CURSOS.txt
 			FileInputStream fileInput = new FileInputStream(directorioArchivo);
 			// Apertura de archivo
 			DataInputStream dataInput = new DataInputStream(fileInput);
