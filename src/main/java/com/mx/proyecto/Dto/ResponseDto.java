@@ -1,10 +1,13 @@
 package com.mx.proyecto.Dto;
 
+import java.util.List;
+
 public class ResponseDto {
 	
 	private Integer code;
 	private String message;
 	private Object content;
+	private List<?> list;
 	
 	public ResponseDto(Integer code, String message, Object content) {
 		super();
@@ -38,6 +41,13 @@ public class ResponseDto {
 		this.content = content;
 	}
 
+	public List<?> getList() {
+		return list;
+	}
+
+	public void setList(List<?> list) {
+		this.list = list;
+	}
 
 	@Override
 	public String toString() {
