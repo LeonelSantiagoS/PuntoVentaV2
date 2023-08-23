@@ -37,6 +37,7 @@ public class UsuariosAdminDAOImpl implements UsuariosAdminDAO {
 
 //		criteria.add(Restrictions.eq("rol", 3)); // --> where rol = 3
 //		criteria.add(Restrictions.eq("edad", 37)); // --> where edad = 25
+		//criteria.add(Restrictions.eq("sexo", sexo));
 
 		return (List<UsuariosAdmin>) criteria.list();
 	}

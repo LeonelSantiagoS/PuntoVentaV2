@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.mx.proyecto.Entity.MisEmpleados;
@@ -59,5 +60,14 @@ public class MisEmpleadosDAOImpl extends GenericDAO<MisEmpleados, Long> implemen
 	public MisEmpleados getById(Long idEmpleado) {
 	    Session session = sessionFactory.getCurrentSession();
 	    return (MisEmpleados) session.get(MisEmpleados.class, idEmpleado);
+	}
+
+	@Override
+	@Transactional
+	public List<MisEmpleados> obtieneEmpleadosM() {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria criteria = session.createCriteria(MisEmpleados.class); 
+		criteria.add(Restrictions.eq("sexo", "M"));
+		return (List<MisEmpleados>) criteria.list();
 	}
 }

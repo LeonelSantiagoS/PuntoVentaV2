@@ -28,7 +28,7 @@ public class MisEmpleadosController {
 		return misEmpleadosService.getMisEmpleados();
 	}
 
-	// Servicio para insertar Empleado
+	// 1. Servicio para insertar Empleado
 	@ResponseBody
 	@RequestMapping(value = "/insertMisEmpleados", method = RequestMethod.POST, produces = "application/json")
 	ResponseEntity<ResponseDto> insertMisEmpleados(@RequestBody MisEmpleadosDTO nuevoEmpleado) {
@@ -40,7 +40,7 @@ public class MisEmpleadosController {
 		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
 	}
 
-	// Eliminar registro - solo Empleados Inactivos
+	// 2. Eliminar registro - solo Empleados Inactivos
 	@ResponseBody
 	@RequestMapping(value = "/eliminarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<ResponseDto> eliminarUsuario(@RequestBody MisEmpleadosDTO idUser) {
@@ -53,7 +53,7 @@ public class MisEmpleadosController {
 		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
 	}
 
-	// Actualizar registro - Solo Empleados Activos
+	// 3. Actualizar registro - Solo Empleados Activos
 	@ResponseBody
 	@RequestMapping(value = "/actualizarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
 	ResponseEntity<ResponseDto> actualizarDatosUsuario(@RequestBody MisEmpleadosDTO datos) {
@@ -65,4 +65,17 @@ public class MisEmpleadosController {
 
 		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
 	}
+	
+	//4.- Servicio para consultar todos los usuarios de sexo Masculino
+	@ResponseBody
+	@RequestMapping(value = "/getMisEmpleadosM", method = RequestMethod.GET, produces = "application/json")
+	public ResponseDto getMisEmpleadosM() {
+		return misEmpleadosService.getMisEmpleadosM();
+	}
+	
+
+	//5.- Servicio para consultar todos los usuarios de sexo Femenino de 35 años
+	
+
+	//6.- Servicio para buscar el usuario por RFC
 }
