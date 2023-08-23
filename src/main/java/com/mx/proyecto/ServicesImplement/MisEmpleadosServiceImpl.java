@@ -1,7 +1,6 @@
 package com.mx.proyecto.ServicesImplement;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mx.proyecto.Dto.MisEmpleadosDTO;
@@ -22,6 +21,14 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		ResponseDto response = new ResponseDto();
 		
 		try {
+			
+			// Verificar si el empleado ya existe por RFC o CURP
+	        if (misEmpleadosDAO.existeEmpleadoPorRfc(nuevoEmpleado.getRfc()) || misEmpleadosDAO.existeEmpleadoPorCurp(nuevoEmpleado.getCurp())) {
+	            response.setCode(400);  // Código de respuesta para "Bad Request"
+	            response.setMessage("El empleado ya existe en la base de datos");
+	            return response;
+	        }
+	        
 			MisEmpleados empleado = new MisEmpleados();
 			empleado.setIdEmpleado(misEmpleadosDAO.obtenerValorSecuencia());
 			System.out.println(empleado.getIdEmpleado());
@@ -66,6 +73,64 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		} catch (Exception e) {
 			response.setCode(500);
 			response.setMessage("Ocurrio un error en el metodo getUsuarios2() "+e.getMessage());
+		}
+		return response;
+	}
+
+	@Override
+	public ResponseDto eliminarUsuario(MisEmpleadosDTO idUser) {
+		ResponseDto response = new ResponseDto();
+		try {
+			if (idUser.getIdEmpleado() != 0) {
+				
+				MisEmpleados empleado = misEmpleadosDAO.getById(idUser.getIdEmpleado());
+
+				if (empleado != null) {
+					if (empleado.getActivo() == 0) {
+						misEmpleadosDAO.delete(idUser.getIdEmpleado());
+						response.setCode(200);
+						response.setMessage("Empleado eliminado correctamente");
+					} else {
+						response.setCode(400);
+						response.setMessage("Imposible eliminar Empleado, Sigue Laborando (Activo)...!");
+					}
+				} else {
+					response.setCode(404);
+					response.setMessage("El registro no existe");
+				}
+			} else {
+				response.setCode(400);
+				response.setMessage("El PK no puede ser 0");
+			}
+		} catch (Exception e) {
+			response.setCode(500);
+			response.setMessage("Ocurrio un error en el metodo eliminarUsuario: " + e.getMessage());
+		}
+		return response;
+	}
+
+	@Override
+	public ResponseDto actualizarUsuario(MisEmpleadosDTO datos) {
+		ResponseDto response = new ResponseDto();
+		try {
+			MisEmpleados datosEmpleado = new MisEmpleados();
+			datosEmpleado.setIdEmpleado(datos.getIdEmpleado());
+			datosEmpleado.setNombreCompleto(datos.getNombreCompleto());
+			datosEmpleado.setRfc(datos.getRfc());
+			datosEmpleado.setCurp(datos.getCurp());
+			datosEmpleado.setEdad(datos.getEdad());
+			datosEmpleado.setSexo(datos.getSexo());
+			datosEmpleado.setDireccion(datos.getDireccion());
+			datosEmpleado.setNss(datos.getNss());
+			datosEmpleado.setTelefono(datos.getTelefono());
+			datosEmpleado.setActivo(datos.getActivo());
+			misEmpleadosDAO.update(datosEmpleado);
+			response.setCode(200);
+			response.setMessage("El registro "+datos.getNombreCompleto()+" se actualizó correctamente");
+			
+		} catch (Exception e) {
+			response.setCode(500);
+			response.setMessage("Ocurrio un error en el metodo actualizarUsuario: "+e.getMessage());
 		}
 		return response;
 	}

@@ -7,6 +7,6 @@ public interface MisEmpleadosService {
 
 	ResponseDto insertEmpleado(MisEmpleadosDTO nuevoEmpleado);
 	ResponseDto getMisEmpleados();
-	
-
+	ResponseDto eliminarUsuario(MisEmpleadosDTO idUser);
+	ResponseDto actualizarUsuario(MisEmpleadosDTO datos);
 }

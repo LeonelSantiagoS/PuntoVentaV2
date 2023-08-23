@@ -27,7 +27,6 @@ public class MisEmpleadosController {
 
 		return misEmpleadosService.getMisEmpleados();
 	}
-	
 
 	// Servicio para insertar Empleado
 	@ResponseBody
@@ -41,4 +40,29 @@ public class MisEmpleadosController {
 		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
 	}
 
+	// Eliminar registro
+	@ResponseBody
+	@RequestMapping(value = "/eliminarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<ResponseDto> eliminarUsuario(@RequestBody MisEmpleadosDTO idUser) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+
+		ResponseDto respuesta = misEmpleadosService.eliminarUsuario(idUser);
+
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
+	}
+
+	// Actualizar registro
+	@ResponseBody
+	@RequestMapping(value = "/actualizarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
+	ResponseEntity<ResponseDto> actualizarDatosUsuario(@RequestBody MisEmpleadosDTO datos) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+
+		ResponseDto respuesta = misEmpleadosService.actualizarUsuario(datos);
+
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
+	}
 }
