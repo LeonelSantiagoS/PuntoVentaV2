@@ -40,7 +40,7 @@ public class MisEmpleadosController {
 		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
 	}
 
-	// Eliminar registro
+	// Eliminar registro - solo Empleados Inactivos
 	@ResponseBody
 	@RequestMapping(value = "/eliminarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<ResponseDto> eliminarUsuario(@RequestBody MisEmpleadosDTO idUser) {
@@ -53,7 +53,7 @@ public class MisEmpleadosController {
 		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
 	}
 
-	// Actualizar registro
+	// Actualizar registro - Solo Empleados Activos
 	@ResponseBody
 	@RequestMapping(value = "/actualizarMisEmpleados", method = RequestMethod.POST, produces = "application/json")
 	ResponseEntity<ResponseDto> actualizarDatosUsuario(@RequestBody MisEmpleadosDTO datos) {

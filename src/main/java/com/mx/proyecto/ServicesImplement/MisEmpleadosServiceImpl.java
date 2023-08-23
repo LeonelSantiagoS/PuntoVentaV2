@@ -113,24 +113,39 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 	public ResponseDto actualizarUsuario(MisEmpleadosDTO datos) {
 		ResponseDto response = new ResponseDto();
 		try {
-			MisEmpleados datosEmpleado = new MisEmpleados();
-			datosEmpleado.setIdEmpleado(datos.getIdEmpleado());
-			datosEmpleado.setNombreCompleto(datos.getNombreCompleto());
-			datosEmpleado.setRfc(datos.getRfc());
-			datosEmpleado.setCurp(datos.getCurp());
-			datosEmpleado.setEdad(datos.getEdad());
-			datosEmpleado.setSexo(datos.getSexo());
-			datosEmpleado.setDireccion(datos.getDireccion());
-			datosEmpleado.setNss(datos.getNss());
-			datosEmpleado.setTelefono(datos.getTelefono());
-			datosEmpleado.setActivo(datos.getActivo());
-			misEmpleadosDAO.update(datosEmpleado);
-			response.setCode(200);
-			response.setMessage("El registro "+datos.getNombreCompleto()+" se actualizó correctamente");
-			
+			if (datos.getIdEmpleado() != 0) {
+				MisEmpleados empleado = misEmpleadosDAO.getById(datos.getIdEmpleado());
+				if (empleado != null) {
+					if (empleado.getActivo() == 1) {
+						MisEmpleados datosEmpleado = new MisEmpleados();
+						datosEmpleado.setIdEmpleado(datos.getIdEmpleado());
+						datosEmpleado.setNombreCompleto(datos.getNombreCompleto());
+						datosEmpleado.setRfc(datos.getRfc());
+						datosEmpleado.setCurp(datos.getCurp());
+						datosEmpleado.setEdad(datos.getEdad());
+						datosEmpleado.setSexo(datos.getSexo());
+						datosEmpleado.setDireccion(datos.getDireccion());
+						datosEmpleado.setNss(datos.getNss());
+						datosEmpleado.setTelefono(datos.getTelefono());
+						datosEmpleado.setActivo(datos.getActivo());
+						misEmpleadosDAO.update(datosEmpleado);
+						response.setCode(200);
+						response.setMessage("El registro " + datos.getNombreCompleto() + " se actualizó correctamente");
+					} else {
+						response.setCode(400);
+						response.setMessage("El empleado esta dado de baja, No puede actualizar su informacion.! ");
+					}
+				} else {
+					response.setCode(404);
+					response.setMessage("No se encuentra ningun registro con ID "+datos.getIdEmpleado());
+				}
+			} else {
+				response.setCode(400);
+				response.setMessage("El PK no puede ser 0");
+			}
 		} catch (Exception e) {
 			response.setCode(500);
-			response.setMessage("Ocurrio un error en el metodo actualizarUsuario: "+e.getMessage());
+			response.setMessage("Ocurrio un error en el metodo actualizarUsuario: " + e.getMessage());
 		}
 		return response;
 	}
