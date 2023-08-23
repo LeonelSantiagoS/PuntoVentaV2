@@ -11,4 +11,5 @@ public interface MisEmpleadosDAO extends DAO<MisEmpleados, Long> {
 	boolean existeEmpleadoPorCurp(String curp);
 	MisEmpleados getById(Long idEmpleado);
 	List<MisEmpleados> obtieneEmpleadosM();
+	List<MisEmpleados> obtieneEmpleadosF();
 }

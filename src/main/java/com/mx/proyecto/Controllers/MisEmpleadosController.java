@@ -75,7 +75,11 @@ public class MisEmpleadosController {
 	
 
 	//5.- Servicio para consultar todos los usuarios de sexo Femenino de 35 años
-	
+	@ResponseBody
+	@RequestMapping(value = "/getMisEmpleadosF", method = RequestMethod.GET, produces = "application/json")
+	public ResponseDto getMisEmpleadosF() {
+		return misEmpleadosService.getMisEmpleadosF();
+	}
 
 	//6.- Servicio para buscar el usuario por RFC
 }

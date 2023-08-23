@@ -10,4 +10,5 @@ public interface MisEmpleadosService {
 	ResponseDto eliminarUsuario(MisEmpleadosDTO idUser);
 	ResponseDto actualizarUsuario(MisEmpleadosDTO datos);
 	ResponseDto getMisEmpleadosM();
+	ResponseDto getMisEmpleadosF();
 }

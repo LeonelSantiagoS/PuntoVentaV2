@@ -70,4 +70,14 @@ public class MisEmpleadosDAOImpl extends GenericDAO<MisEmpleados, Long> implemen
 		criteria.add(Restrictions.eq("sexo", "M"));
 		return (List<MisEmpleados>) criteria.list();
 	}
+
+	@Override
+	@Transactional
+	public List<MisEmpleados> obtieneEmpleadosF() {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria criteria = session.createCriteria(MisEmpleados.class); 
+		criteria.add(Restrictions.eq("sexo", "F"));
+		criteria.add(Restrictions.eq("edad", Long.valueOf(35)));
+		return (List<MisEmpleados>) criteria.list();
+	}
 }

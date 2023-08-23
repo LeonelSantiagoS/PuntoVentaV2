@@ -171,4 +171,26 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		}
 		return response;
 	}
+
+	@Override
+	public ResponseDto getMisEmpleadosF() {
+		ResponseDto response = new ResponseDto();
+		try {
+			List<MisEmpleados> listaEmpleados = misEmpleadosDAO.obtieneEmpleadosF();
+			System.out.println(listaEmpleados.toString());
+			// if(listaUsuarios != null) {
+			if (listaEmpleados.isEmpty()) {
+				response.setMessage("No existen registros");
+			} else {
+				response.setCode(200); // 200 -> OK
+				response.setMessage("Lista de Empleados");
+				response.setContent(listaEmpleados);
+			}
+
+		} catch (Exception e) {
+			response.setCode(500);
+			response.setMessage("Ocurrio un error en el metodo getMisEmpleadosF() " + e.getMessage());
+		}
+		return response;
+	}
 }
