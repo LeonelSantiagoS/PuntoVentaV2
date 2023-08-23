@@ -82,4 +82,12 @@ public class MisEmpleadosController {
 	}
 
 	//6.- Servicio para buscar el usuario por RFC
+	@ResponseBody
+	@RequestMapping(value = "/getMisEmpleadosPorRFC", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<ResponseDto> getMisEmpleadosPorRFC(@RequestBody MisEmpleadosDTO rfc) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		ResponseDto respuesta = misEmpleadosService.getMisEmpleadosPorRFC(rfc);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
+	}
 }

@@ -193,4 +193,31 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		}
 		return response;
 	}
+
+	@Override
+	public ResponseDto getMisEmpleadosPorRFC(MisEmpleadosDTO rfc) {
+		ResponseDto response = new ResponseDto();
+		try {
+			if (rfc.getRfc() != null) {
+
+				MisEmpleados empleado = misEmpleadosDAO.getByRFC(rfc.getRfc());
+
+				if (empleado != null) {
+					response.setCode(200);
+					response.setMessage("RFC encontrado !!");
+					response.setContent(empleado);
+				} else {
+					response.setCode(404);
+					response.setMessage("RFC no encontrado !!!");
+				}
+			} else {
+				response.setCode(400);
+				response.setMessage("El campo RFC no puede ser null");
+			}
+		} catch (Exception e) {
+			response.setCode(500);
+			response.setMessage("Ocurrio un error en el metodo getMisEmpleadosPorRFC: " + e.getMessage());
+		}
+		return response;
+	}
 }

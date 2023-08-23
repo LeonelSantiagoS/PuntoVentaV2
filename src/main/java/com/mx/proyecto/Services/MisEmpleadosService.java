@@ -11,4 +11,5 @@ public interface MisEmpleadosService {
 	ResponseDto actualizarUsuario(MisEmpleadosDTO datos);
 	ResponseDto getMisEmpleadosM();
 	ResponseDto getMisEmpleadosF();
+	ResponseDto getMisEmpleadosPorRFC(MisEmpleadosDTO rfc);
 }

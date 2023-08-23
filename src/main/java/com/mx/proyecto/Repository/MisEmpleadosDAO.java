@@ -12,4 +12,5 @@ public interface MisEmpleadosDAO extends DAO<MisEmpleados, Long> {
 	MisEmpleados getById(Long idEmpleado);
 	List<MisEmpleados> obtieneEmpleadosM();
 	List<MisEmpleados> obtieneEmpleadosF();
+	MisEmpleados getByRFC(String rfc);
 }

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Table(name = "MIS_EMPLEADOS", schema = "CURSOLEO")
 public class MisEmpleados {
@@ -14,6 +16,7 @@ public class MisEmpleados {
 	@Column(name = "NOMBRE_COMPLETO")
 	private String nombreCompleto;
 
+	@NaturalId
 	@Column(name = "RFC")
 	private String rfc;
 

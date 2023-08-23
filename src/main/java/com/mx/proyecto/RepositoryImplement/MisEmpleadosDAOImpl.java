@@ -80,4 +80,11 @@ public class MisEmpleadosDAOImpl extends GenericDAO<MisEmpleados, Long> implemen
 		criteria.add(Restrictions.eq("edad", Long.valueOf(35)));
 		return (List<MisEmpleados>) criteria.list();
 	}
+
+	@Override
+	@Transactional
+	public MisEmpleados getByRFC(String rfc) {
+		Session session = sessionFactory.getCurrentSession();
+		return (MisEmpleados) session.bySimpleNaturalId(MisEmpleados.class).load(rfc);
+	}
 }
