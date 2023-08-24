@@ -22,9 +22,16 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		
 		try {
 			
+			// Validar el formato de la CURP
+	        if (!nuevoEmpleado.getCurp().matches("^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9A-Z]{2}$")) {
+	            response.setCode(400);
+	            response.setMessage("La curp no cuenta con la estrutura adecuada");
+	            return response;
+	        }
+			
 			// Verificar si el empleado ya existe por RFC o CURP
 	        if (misEmpleadosDAO.existeEmpleadoPorRfc(nuevoEmpleado.getRfc()) || misEmpleadosDAO.existeEmpleadoPorCurp(nuevoEmpleado.getCurp())) {
-	            response.setCode(400);  // Código de respuesta para "Bad Request"
+	            response.setCode(400);
 	            response.setMessage("El empleado ya existe en la base de datos");
 	            return response;
 	        }
