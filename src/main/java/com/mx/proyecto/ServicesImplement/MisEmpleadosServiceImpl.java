@@ -17,28 +17,26 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 
 	@Override
 	public ResponseDto insertEmpleado(MisEmpleadosDTO nuevoEmpleado) {
-		System.out.println("llegamos a la implementacion del servicio, venimos del controller");
+		
 		ResponseDto response = new ResponseDto();
 		
+		// Realizar validaciones de CURP Y RFC
+	    ResponseDto validationResponse = validarCampos(nuevoEmpleado.getCurp(), nuevoEmpleado.getRfc());
+	    if (validationResponse.getCode() != 200) {
+	        return validationResponse;
+	    }
+		
 		try {
-			
-			// Validar el formato de la CURP
-	        if (!nuevoEmpleado.getCurp().matches("^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9A-Z]{2}$")) {
-	            response.setCode(400);
-	            response.setMessage("La curp no cuenta con la estrutura adecuada");
-	            return response;
-	        }
-			
 			// Verificar si el empleado ya existe por RFC o CURP
-	        if (misEmpleadosDAO.existeEmpleadoPorRfc(nuevoEmpleado.getRfc()) || misEmpleadosDAO.existeEmpleadoPorCurp(nuevoEmpleado.getCurp())) {
-	            response.setCode(400);
-	            response.setMessage("El empleado ya existe en la base de datos");
-	            return response;
-	        }
+			if (misEmpleadosDAO.existeEmpleadoPorRfc(nuevoEmpleado.getRfc())
+					|| misEmpleadosDAO.existeEmpleadoPorCurp(nuevoEmpleado.getCurp())) {
+				response.setCode(400);
+				response.setMessage("El empleado ya existe en la base de datos");
+				return response;
+			}
 	        
 			MisEmpleados empleado = new MisEmpleados();
 			empleado.setIdEmpleado(misEmpleadosDAO.obtenerValorSecuencia());
-			System.out.println(empleado.getIdEmpleado());
 			empleado.setNombreCompleto(nuevoEmpleado.getNombreCompleto());
 			empleado.setRfc(nuevoEmpleado.getRfc());
 			empleado.setCurp(nuevoEmpleado.getCurp());
@@ -226,5 +224,29 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 			response.setMessage("Ocurrio un error en el metodo getMisEmpleadosPorRFC: " + e.getMessage());
 		}
 		return response;
+	}
+	
+	private ResponseDto validarCampos(String curp, String rfc) {
+		ResponseDto validationResponse = new ResponseDto();
+
+		boolean curpValid = curp.matches("^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9A-Z]{2}$");
+
+		boolean rfcValid = rfc.matches("^[A-Z]{3}\\d{6}[A-Z0-9]{3}$|^[A-Z]{4}\\d{6}[A-Z0-9]{3}$");
+
+		if (!curpValid && !rfcValid) {
+			validationResponse.setCode(400);
+			validationResponse.setMessage("La CURP y el RFC no cuentan con la estructura adecuada");
+		} else if (!curpValid) {
+			validationResponse.setCode(400);
+			validationResponse.setMessage("La CURP no cuenta con la estructura adecuada");
+		} else if (!rfcValid) {
+			validationResponse.setCode(400);
+			validationResponse.setMessage("El RFC no cuenta con la estructura adecuada");
+		} else {
+			validationResponse.setCode(200);
+			validationResponse.setMessage("Validación exitosa");
+		}
+
+		return validationResponse;
 	}
 }

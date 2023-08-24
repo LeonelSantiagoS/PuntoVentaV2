@@ -35,7 +35,6 @@ public class MisEmpleadosController {
 		final HttpHeaders httpHeaders = new HttpHeaders();
 
 		ResponseDto response = misEmpleadosService.insertEmpleado(nuevoEmpleado);
-		System.out.println("volvimos al controller");
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity<ResponseDto>(response, httpHeaders, HttpStatus.OK);
 	}
