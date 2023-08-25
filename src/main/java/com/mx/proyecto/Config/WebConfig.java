@@ -22,6 +22,7 @@ public class WebConfig {
 		return resol;
 	}
 	
+//	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 			.addResourceHandler("/resources/**")

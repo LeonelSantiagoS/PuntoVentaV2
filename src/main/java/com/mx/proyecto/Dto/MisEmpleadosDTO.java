@@ -9,7 +9,7 @@ public class MisEmpleadosDTO {
 	private Long edad;
 	private String sexo;
 	private String direccion;
-	private Long nss;
+	private String nss;
 	private Long telefono;
 	private Long activo;
 	public Long getIdEmpleado() {
@@ -54,10 +54,11 @@ public class MisEmpleadosDTO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public Long getNss() {
+	
+	public String getNss() {
 		return nss;
 	}
-	public void setNss(Long nss) {
+	public void setNss(String nss) {
 		this.nss = nss;
 	}
 	public Long getTelefono() {

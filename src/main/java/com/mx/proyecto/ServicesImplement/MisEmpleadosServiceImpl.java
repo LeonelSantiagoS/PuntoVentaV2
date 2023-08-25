@@ -20,8 +20,8 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		
 		ResponseDto response = new ResponseDto();
 		
-		// Realizar validaciones de CURP Y RFC
-	    ResponseDto validationResponse = validarCampos(nuevoEmpleado.getCurp(), nuevoEmpleado.getRfc());
+		// Realizar validaciones de CURP, RFC y NSS
+	    ResponseDto validationResponse = validarCampos(nuevoEmpleado.getCurp(), nuevoEmpleado.getRfc(), nuevoEmpleado.getNss());
 	    if (validationResponse.getCode() != 200) {
 	        return validationResponse;
 	    }
@@ -43,7 +43,7 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 			empleado.setEdad(nuevoEmpleado.getEdad());
 			empleado.setSexo(nuevoEmpleado.getSexo());
 			empleado.setDireccion(nuevoEmpleado.getDireccion());
-			empleado.setNss(nuevoEmpleado.getNss());
+			empleado.setNss(Long.parseLong(nuevoEmpleado.getNss()));
 			empleado.setTelefono(nuevoEmpleado.getTelefono());
 			empleado.setActivo(nuevoEmpleado.getActivo());
 			misEmpleadosDAO.create(empleado);
@@ -130,7 +130,7 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 						datosEmpleado.setEdad(datos.getEdad());
 						datosEmpleado.setSexo(datos.getSexo());
 						datosEmpleado.setDireccion(datos.getDireccion());
-						datosEmpleado.setNss(datos.getNss());
+						datosEmpleado.setNss(Long.parseLong(datos.getNss()));
 						datosEmpleado.setTelefono(datos.getTelefono());
 						datosEmpleado.setActivo(datos.getActivo());
 						misEmpleadosDAO.update(datosEmpleado);
@@ -226,27 +226,43 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 		return response;
 	}
 	
-	private ResponseDto validarCampos(String curp, String rfc) {
-		ResponseDto validationResponse = new ResponseDto();
+	private ResponseDto validarCampos(String curp, String rfc, String nss) {
+	    ResponseDto validationResponse = new ResponseDto();
 
-		boolean curpValid = curp.matches("^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9A-Z]{2}$");
+	    boolean curpValid = curp.matches("^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9A-Z]{2}$");
+	    boolean rfcValid = rfc.matches("^[A-Z]{3}\\d{6}[A-Z0-9]{3}$|^[A-Z]{4}\\d{6}[A-Z0-9]{3}$");
+	    boolean nssValid = false;
+	    StringBuilder errorMessage = new StringBuilder();
 
-		boolean rfcValid = rfc.matches("^[A-Z]{3}\\d{6}[A-Z0-9]{3}$|^[A-Z]{4}\\d{6}[A-Z0-9]{3}$");
+	    if (nss != null) {
+	        if (nss.matches("^\\d+$")) {
+	            if (nss.length() != 10) {
+	                errorMessage.append("Su NSS no cuenta con la estructura adecuada. ");
+	            } else {
+	                nssValid = true;
+	            }
+	        } else {
+	            errorMessage.append("El campo NSS debe ser numérico. ");
+	        }
+	    } else {
+	        errorMessage.append("El NSS es nulo. ");
+	    }
 
-		if (!curpValid && !rfcValid) {
-			validationResponse.setCode(400);
-			validationResponse.setMessage("La CURP y el RFC no cuentan con la estructura adecuada");
-		} else if (!curpValid) {
-			validationResponse.setCode(400);
-			validationResponse.setMessage("La CURP no cuenta con la estructura adecuada");
-		} else if (!rfcValid) {
-			validationResponse.setCode(400);
-			validationResponse.setMessage("El RFC no cuenta con la estructura adecuada");
-		} else {
-			validationResponse.setCode(200);
-			validationResponse.setMessage("Validación exitosa");
-		}
+	    // Validaciones combinadas
+	    if (!curpValid || !rfcValid || !nssValid) {
+	        if (!curpValid) {
+	            errorMessage.append("La CURP no cuenta con la estructura adecuada. ");
+	        }
+	        if (!rfcValid) {
+	            errorMessage.append("El RFC no cuenta con la estructura adecuada. ");
+	        }
+	        validationResponse.setCode(400);
+	        validationResponse.setMessage(errorMessage.toString().trim());
+	    } else {
+	        validationResponse.setCode(200);
+	        validationResponse.setMessage("Validación exitosa");
+	    }
 
-		return validationResponse;
+	    return validationResponse;
 	}
 }
