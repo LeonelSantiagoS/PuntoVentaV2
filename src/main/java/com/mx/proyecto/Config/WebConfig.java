@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration //IDENTIFICAR QUE NUESTRA CLASE ES DE TIPO CONFIGURCION
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 //PAQUETE VA A BUSCAR AQUELLAS CLASES QUE NOSOTROS HAYAMOS
 //AFILIADO/INTEGRADO A SPRING CON LAS ANOTACIONES
 
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public InternalResourceViewResolver resolver() {
 		InternalResourceViewResolver resol = new InternalResourceViewResolver();
@@ -22,7 +23,7 @@ public class WebConfig {
 		return resol;
 	}
 	
-//	@Override
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 			.addResourceHandler("/resources/**")
