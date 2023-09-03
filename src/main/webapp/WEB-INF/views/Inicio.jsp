@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="<c:url value='usuariosHibernate2/vistaUsuarios'/>" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="<c:url value='usuariosAdminHibernate2/vistaUsuarios'/>" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lista de Usuarios Admin 
           </a>
         </li>

@@ -20,6 +20,14 @@ public class UsuariosAdminController2 {
 
 	@Autowired
 	public UsuariosAdminService2 usuariosAdminService2;
+	
+	//Servicio para redireccionar a la vista de usuarios Admin
+	@RequestMapping(value = "/vistaUsuarios")// Servicio que redirecciona al modulo de Usuarios Admin
+	public String redireccionaVistaUsuariosAdmin() { 
+		
+		return "Vista_usuariosAdmin";
+	}
+	
 
 	// lista de usuarios -> select * from tabla;
 	@ResponseBody
@@ -74,5 +82,7 @@ public class UsuariosAdminController2 {
 		
 		return usuariosAdminService2.getUsuariosPorId(dato);
 	}
+	
+	
 
 } // Fin de la clase
