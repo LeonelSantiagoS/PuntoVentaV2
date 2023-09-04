@@ -20,6 +20,14 @@ public class MisEmpleadosController {
 	@Autowired
 	public MisEmpleadosService misEmpleadosService;
 
+	
+	// Servicio para redireccionar a la vista de empleados
+	@RequestMapping(value = "/vistaEmpleados")
+	public String redireccionaVistaEmpleados() {
+
+		return "Vista_Empleados";
+	}
+
 	// Servicio para consultar empleados
 	@ResponseBody
 	@RequestMapping(value = "/getMisEmpleados", method = RequestMethod.GET, produces = "application/json")

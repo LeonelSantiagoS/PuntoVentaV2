@@ -31,8 +31,8 @@
         </li>
         
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Inventario
+          <a class="nav-link dropdown-toggle" href="<c:url value='misEmpleados/vistaEmpleados'/>" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Empleados
           </a>
         </li>
         
