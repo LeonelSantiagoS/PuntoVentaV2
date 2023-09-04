@@ -76,8 +76,9 @@ public class UsuariosAdminController2 {
 		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
 	}
 	
+	//Consulta por ID
 	@ResponseBody
-	@RequestMapping(value = "/getUsuariosPorId", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getUsuariosPorId", method = RequestMethod.POST, produces = "application/json")
 	public ResponseDto getUsuariosPorId(@RequestBody UsuariosAdminDTO dato) { 
 		
 		return usuariosAdminService2.getUsuariosPorId(dato);

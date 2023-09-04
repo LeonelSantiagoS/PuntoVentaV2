@@ -34,8 +34,63 @@
 
 </head>
 <body>
-	<center><h2>Vista Usuarios Admin</h2></center>
-	
+	<center>
+		<h2>Vista Usuarios Admin</h2>
+	</center>
+
+<!-- Para abrir modal el boton se le agrego un ide vamos a abrir el modal por medio de JavaScript en el archivo .js -->
+<!-- 
+	<button type="button" class="btn btn-primary" id="btn_AbrirModal"
+		class="fas fa-user-plus">Agregar nuevo registro</button>
+ -->
+	<button type="button" class="btn btn-primary" id="btn_AbrirModal">
+		<i class="fas fa-user-plus"></i> Agregar Usuario
+	</button>
+
+
+<!--  ESTE ES EL MODAL PARA AGREGAR UN NUEVO REGISTRO -->
+<div class="modal fade" id=muestraModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-user"></i> Agregar Nuevo Usuario</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nombre completo *:</label>
+            <input type="text" class="form-control" id="nombre_completo_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Edad *:</label>
+            <input type="text" class="form-control" id="edad_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Dirección *:</label>
+            <input type="text" class="form-control" id="direccion_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Estado *:</label>
+            <input type="text" class="form-control" id="estado_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Rol *:</label>
+            <input type="text" class="form-control" id="rol_view">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btn_guardar" >Guardar registro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
 
 	<table class="table" id="id_tablaUsuariosAdmin">
 		<thead>
@@ -55,6 +110,40 @@
 		</tbody>
 	</table>
 
+
+<!-- Modal 2 ESTE MODAL ES PARA ACTUALIZAR INFORMACION DEL USUARIO-->
+		<div class="modal fade" id="modalActualizarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Actualizar Usuario</h5>
+					</div>
+					<input type="hidden" id="idUser_actualizar">
+					
+					<div class="modal-body">
+						<label for="">Nombre completo: </label> 
+						<input type="text" class="form-control" id="nombre_completo_actualizar">
+						
+						<label for="">edad: </label> 
+						<input type="text" class="form-control" id="edad_actualizar">
+
+						<label for="">dirección: </label> 
+						<input type="text" class="form-control" id="direccion_actualizar">
+
+						<label for="">Estado: </label> 
+						<input type="text" class="form-control" id="estado_actualizar">
+
+						<label for="">Rol: </label> 
+						<input type="text" class="form-control" id="rol_actualizar">
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-primary" id="BotonActualizarUsuario" onclick="click">Actualizar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 	<!-- javascript - movimiento -->

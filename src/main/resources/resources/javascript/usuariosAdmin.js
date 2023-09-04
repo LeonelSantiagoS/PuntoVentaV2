@@ -9,9 +9,9 @@ $(document).ready(function(){ // Esta parte  es para realizar la carga de la pag
 	
 	
 	
-//	$('#btn_AbrirModal').click(function () {
-//    	$('#muestraModal').modal('show'); // muestra el modal
-//    });
+	$('#btn_AbrirModal').click(function () {
+    	$('#muestraModal').modal('show'); // muestra el modal
+    });
 	
 	
 //	var tabla = $('#id_tablaUsuariosAdmin').DataTable(); // Esta linea convierte la tabla en -< DataTable()
@@ -123,8 +123,127 @@ var configuracionLenguaje_es = {
 		}
 };
 
+// Function para registrar informacion del usuario cuando se de clic en el boton
+// de guardar
+$(document).on("click", "#btn_guardar", function(e) {
+	e.preventDefault();
+
+	alert("Soy el botont guardar");
+
+//	debugger; // mostrarte como se ejecuta el codigo linea x linea
+
+	// las variables de nombreCompleto - edad- direccion - estado - rol -> como estan en el DTO <<<<<<-------- DTO
+	var datosUsuario = {
+		nombreCompleto : $('#nombre_completo_view').val(), // <-- se recoje la informacion ingresada en el campo de texto
+		edad : $('#edad_view').val(),
+		direccion : $('#direccion_view').val(),
+		estado : $('#estado_view').val(),
+		rol : $('#rol_view').val()
+	}
+
+	console.log(datosUsuario);
+
+	// Ajax: Conexion del frontEnd conectarlo con el BackEnd
+	$.ajax({
+		type : "POST",
+		url : "/PuntoVentaV2/usuariosAdminHibernate2/insertUsuarios2",
+		data : JSON.stringify(datosUsuario), // -> es la informacion que se le manda al controller por ser una peticion de tipo POST
+		contentType : "application/json",
+		dataType : "json",
+		success : function(response) {
+
+			console.log(response);
+
+			alert(response.message);
+			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que
+										// llamarlo una vez eliminado el registro de la peticion sea correcta
+
+			// Hacer el codigo para que el modal se oculte
+
+		}
+	});
+
+});
+
 /*
-1.- Click - dar clic en el boton
-2.- Ochange - seleccionar datos en un ComboBox
-*/
+ 1.- Click - dar clic en el boton 
+ 2.- Ochange - seleccionar datos en un ComboBox
+ */
+
+//Al momento de dar click sobre el icono se ejecuta esta funcion para ejecitar la peticion y se elimne el registro.
+$(document).on("click","#eliminar_usuario", function (e) {
+	 e.preventDefault();
+	
+	 alert("Estoy desde la function eliminar");
+	
+//	debugger; // mostrarte como se ejecuta el codigo linea x linea	 
+
+	var idUsuario = {
+//						: -> id=1	 // -> $(this).attr("value") -> Es el valor que recojemos de la tabla o sea es el id de cada registro
+		idUser: $(this).attr("value")// Asignado el id a la variable -> idUser que viene de la clase DTO
+	}
+	
+	console.log(idUsuario);
+
+	// Ajax: Conexion del frontEnd conectarlo con el BackEnd
+	$.ajax({												 // Todo esto contiene el valor del id desde la tabla -> $(this).attr("value");
+		type: "POST",
+		url: "/PuntoVentaV2/usuariosAdminHibernate2/eliminarUsuario2",
+		data : JSON.stringify(idUsuario), //-> es la informacion que se le manda al controller por ser una peticion de tipo POST	
+		contentType: "application/json",
+		dataType: "json", 
+		success: function(response){
+
+			console.log(response); 
+			alert(response.message);
+			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que llamarlo una vez eliminado el registro de la peticion ->eliminarUsuario
+		}
+	});
+});
+
+
+
+//select * from tabla where ID = idUser
+//Esta parte es para consultar la informacion del usuario por su ID, de la fila que se selecciona dentro del dataTable esto para llenar los campos del modal presentar la inf.
+$(document).on("click","#editar_usuario",function(e){
+	e.preventDefault();
+	
+//	debugger;
+	var idUsuario = {
+		//			: -> id=1	 // -> $(this).attr("value") -> Es el valor que recojemos de la tabla o sea es el id de cada registro
+			idUser: $(this).attr("value")// Asignado el id a la variable -> idUser que viene de la clase DTO
+		}
+	
+	$.ajax({
+		type: "POST",
+		url: "/PuntoVentaV2/usuariosAdminHibernate2/getUsuariosPorId",
+		data : JSON.stringify(idUsuario), //-> es la informacion que se le manda al controller por ser una peticion de tipo POST	
+		contentType: "application/json",
+		dataType: "json",
+		success: function(response){
+			
+			console.log(response);
+//			console.log(data.content.nombreCompleto);
+			$('#modalActualizarUsuario').modal('show');// mostrar/presentar en la vista el modal			
+//			-->content: 
+//			direccion: "CDMX"
+//			edad: 28
+//			estado: 4
+//			idUser: 2
+//			nombreCompleto: "Diego Hernandez Sanchez"
+//			rol: 3
+	       $('#idUser_actualizar').val(response.content.idUser);  //  
+	       $('#nombre_completo_actualizar').val(response.content.nombreCompleto);
+	       $('#edad_actualizar').val(response.content.edad);
+	       $('#direccion_actualizar').val(response.content.direccion);
+	       $('#estado_actualizar').val(response.content.estado);
+	       $('#rol_actualizar').val(response.content.rol);
+		}
+});
+
+});
+
+
+
+
 

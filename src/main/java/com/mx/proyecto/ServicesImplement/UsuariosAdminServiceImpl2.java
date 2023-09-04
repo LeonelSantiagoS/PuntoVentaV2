@@ -64,6 +64,7 @@ public class UsuariosAdminServiceImpl2 implements UsuariosAdminService2 {
 					datos.setDireccion(nuevoUsuario.getDireccion());
 					datos.setEdad(nuevoUsuario.getEdad());
 					datos.setEstado(nuevoUsuario.getEstado());
+					datos.setRol(nuevoUsuario.getRol());
 					
 					usuariosAdminDAO2.create(datos); // Desde aqui se hace el INSERT --identificar que retorna la insercion
 					response.setCode(200);
