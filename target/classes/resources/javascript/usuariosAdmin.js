@@ -10,6 +10,10 @@ $(document).ready(function(){ // Esta parte  es para realizar la carga de la pag
 	
 	
 	$('#btn_AbrirModal').click(function () {
+		
+		llenar_combo_lista_de_roles('#listaDeRoles'); // llama la function que hace la peticion de los roles
+		llenar_combo_lista_de_estados('#listaDeEstados');// llama la function que hace la peticion de los estados
+		
     	$('#muestraModal').modal('show'); // muestra el modal
     });
 	
@@ -128,7 +132,7 @@ var configuracionLenguaje_es = {
 $(document).on("click", "#btn_guardar", function(e) {
 	e.preventDefault();
 
-	alert("Soy el botont guardar");
+//	alert("Soy el boton guardar");
 
 //	debugger; // mostrarte como se ejecuta el codigo linea x linea
 
@@ -137,8 +141,10 @@ $(document).on("click", "#btn_guardar", function(e) {
 		nombreCompleto : $('#nombre_completo_view').val(), // <-- se recoje la informacion ingresada en el campo de texto
 		edad : $('#edad_view').val(),
 		direccion : $('#direccion_view').val(),
-		estado : $('#estado_view').val(),
-		rol : $('#rol_view').val()
+//		estado : $('#estado_view').val(), cajas de texto
+//		rol : $('#rol_view').val()
+		estado : $('#listaDeEstados').val(),
+		rol : $('#listaDeRoles').val()
 	}
 
 	console.log(datosUsuario);
@@ -157,8 +163,16 @@ $(document).on("click", "#btn_guardar", function(e) {
 			alert(response.message);
 			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que
 										// llamarlo una vez eliminado el registro de la peticion sea correcta
+			
+			// Borrar los datos de los campos
+		    $('#nombre_completo_view').val('');
+		    $('#edad_view').val('');
+		    $('#direccion_view').val('');
+		    $('#estado_view').val('');
+		    $('#rol_view').val('');
 
-			// Hacer el codigo para que el modal se oculte
+		    // Ocultar el modal
+		    $('#muestraModal').modal('hide');
 
 		}
 	});
@@ -170,11 +184,11 @@ $(document).on("click", "#btn_guardar", function(e) {
  2.- Ochange - seleccionar datos en un ComboBox
  */
 
-//Al momento de dar click sobre el icono se ejecuta esta funcion para ejecitar la peticion y se elimne el registro.
+//Al momento de dar click sobre el icono se ejecuta esta funcion para ejecutar la peticion y se elimne el registro.
 $(document).on("click","#eliminar_usuario", function (e) {
 	 e.preventDefault();
 	
-	 alert("Estoy desde la function eliminar");
+//	 alert("Estoy desde la function eliminar");
 	
 //	debugger; // mostrarte como se ejecuta el codigo linea x linea	 
 
@@ -224,7 +238,14 @@ $(document).on("click","#editar_usuario",function(e){
 			
 			console.log(response);
 //			console.log(data.content.nombreCompleto);
-			$('#modalActualizarUsuario').modal('show');// mostrar/presentar en la vista el modal			
+			
+//			llenar_combo_lista_de_roles('#listaDeRoles'); // llama la function que hace la peticion de los roles
+//		    llenar_combo_lista_de_estados('#listaDeEstados');// llama la function que hace la peticion de los estados
+			
+			// Llama a las funciones para llenar los combobox
+//            llenar_combo_lista_de_estados2('#estado_actualizar');
+//            llenar_combo_lista_de_roles2('#rol_actualizar');
+						
 //			-->content: 
 //			direccion: "CDMX"
 //			edad: 28
@@ -236,14 +257,139 @@ $(document).on("click","#editar_usuario",function(e){
 	       $('#nombre_completo_actualizar').val(response.content.nombreCompleto);
 	       $('#edad_actualizar').val(response.content.edad);
 	       $('#direccion_actualizar').val(response.content.direccion);
-	       $('#estado_actualizar').val(response.content.estado);
-	       $('#rol_actualizar').val(response.content.rol);
+//	       $('#listaDeEstados').val(llenar_combo_lista_de_roles('#listaDeRoles'));
+//	       $('#listaDeRoles').val(llenar_combo_lista_de_estados('#listaDeEstados'));
+//	       $('#listaDeEstados').val(response.content.estado);
+//	       $('#listaDeRoles').val(response.content.rol);
+//	       $('#estado_actualizar').val(response.content.estado);
+//	       $('#rol_actualizar').val(response.content.rol);
+	       
+	       // Llenar los nuevos combobox en el modal de actualización
+           llenar_combo_lista_de_estados_actualizar('#listaDeEstados_actualizar');
+           llenar_combo_lista_de_roles_actualizar('#listaDeRoles_actualizar');
+	       
+	       $('#modalActualizarUsuario').modal('show');// mostrar/presentar en la vista el modal
 		}
 });
 
 });
 
+//Function para actualizar informacion del usuario -> UPDATE  FROM SET ....... 
+$(document).on("click","#BotonActualizarUsuario", function (e) {
+	 e.preventDefault();
+	
+//	debugger; // mostrarte como se ejecuta el codigo linea x linea
+	   
+	var datosUsuario = {
+			idUser : $('#idUser_actualizar').val(),
+			nombreCompleto : $('#nombre_completo_actualizar').val(),
+			edad : $('#edad_actualizar').val(),
+			direccion : $('#direccion_actualizar').val(),
+//			estado : $('#estado_actualizar').val(),
+//			rol : $('#rol_actualizar').val()
+			estado : $('#listaDeEstados_actualizar').val(),
+			rol : $('#listaDeRoles_actualizar').val()
+	}
+	
+	console.log(datosUsuario);
+
+	// Ajax: Conexion del frontEnd conectarlo con el BackEnd
+	
+	$.ajax({
+		type: "POST",
+		url: "/PuntoVentaV2/usuariosAdminHibernate2/actualizarDatos2",
+		data : JSON.stringify(datosUsuario), //-> es la informacion que se le manda al controller por ser una peticion de tipo POST	
+		contentType: "application/json",
+		dataType: "json",
+		success: function(response){
+			
+			console.log(response);
+			alert(response.message);
+			
+//			$('#modalActualizarUsuario').hide(); // ocultar el modal una vez que se actualize correctamente
+			$('#modalActualizarUsuario').modal('hide');
+			
+			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que llamarlo una vez eliminado el registro de la peticion ->eliminarUsuario
+			
+		}
+	});
+	
+});
+
+//-- FUNCTIONES PARA LLENAR LOS COMBOS CON LOS CATALOGOS DE ESTADOS Y ROLES
+
+//$.each -> esto equivalente a un for()  en JAVA
+
+//hace el llenado de la lista de estados
+function llenar_combo_lista_de_estados(combo) {
+//	debugger
+	$(combo).empty();
+	    
+		$.ajax({
+	        type: "get",
+	        url: "/PuntoVentaV2/catalogos/getEstados",
+	        dataType: "json",
+	        success: function (respose) {
+	            console.log(respose);
+	            $.each(respose, function (key, registro) {
+	                $(combo).append('<option value=' + registro.idEstado + '>' + registro.nombre + '</option>');
+	             });
+	        },
+	    });
+		
+	}
 
 
+
+
+//Function para llenar el coboBox de la lista de roles
+
+function llenar_combo_lista_de_roles(combo) {
+//	debugger
+	$(combo).empty();
+	    $.ajax({
+	        type: "get",
+	        url: "/PuntoVentaV2/catalogos/getRoles",
+	        dataType: "json",
+	        success: function (data) {
+	            console.log(data);
+	            $.each(data, function (key, registro) {
+	                $(combo).append('<option value=' + registro.idRol + '>' + registro.nombre + '</option>');
+	             });
+	        },
+	    });
+	}
+
+// Function para llenar el combobox de la lista de estados en el modal de actualización
+function llenar_combo_lista_de_estados_actualizar(combo) {
+    $(combo).empty();
+    $.ajax({
+        type: "get",
+        url: "/PuntoVentaV2/catalogos/getEstados",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                $(combo).append('<option value=' + registro.idEstado + '>' + registro.nombre + '</option>');
+            });
+        },
+    });
+}
+
+// Function para llenar el combobox de la lista de roles en el modal de actualización
+function llenar_combo_lista_de_roles_actualizar(combo) {
+    $(combo).empty();
+    $.ajax({
+        type: "get",
+        url: "/PuntoVentaV2/catalogos/getRoles",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                $(combo).append('<option value=' + registro.idRol + '>' + registro.nombre + '</option>');
+            });
+        },
+    });
+}
 
 

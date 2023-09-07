@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <%--
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -33,8 +34,55 @@
 		<h2>Vista Empleados</h2>
 	</center>
 	
+	<br>
+	<button type="button" class="btn btn-primary" id="btn_AbrirModal">
+		<i class="fas fa-user-plus"></i> Agregar Empleado
+	</button>
+	
+<!--  ESTE ES EL MODAL PARA AGREGAR UN NUEVO REGISTRO -->
+<div class="modal fade" id=muestraModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-user"></i> Agregar Nuevo Usuario</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nombre completo *:</label>
+            <input type="text" class="form-control" id="nombre_completo_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Edad *:</label>
+            <input type="text" class="form-control" id="edad_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Direccion *:</label>
+            <input type="text" class="form-control" id="direccion_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Estado *:</label>
+            <input type="text" class="form-control" id="estado_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Rol *:</label>
+            <input type="text" class="form-control" id="rol_view">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btn_guardar" >Guardar registro</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
 	<br><br>
-
+	
 	<table class="table" id="id_tablaEmpleados">
 		<thead>
 			<tr>

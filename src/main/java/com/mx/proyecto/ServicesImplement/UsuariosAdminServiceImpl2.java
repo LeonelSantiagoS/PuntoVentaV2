@@ -119,6 +119,7 @@ public class UsuariosAdminServiceImpl2 implements UsuariosAdminService2 {
 			datosUsuario.setDireccion(datos.getDireccion());
 			datosUsuario.setEdad(datos.getEdad());
 			datosUsuario.setEstado(datos.getEstado());
+			datosUsuario.setRol(datos.getRol());
 			
 			usuariosAdminDAO2.update(datosUsuario);
 			response.setCode(200);

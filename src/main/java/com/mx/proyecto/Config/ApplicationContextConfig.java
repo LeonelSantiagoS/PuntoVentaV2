@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mx.proyecto.Entity.MisEmpleados;
 import com.mx.proyecto.Entity.UsuariosAdmin;
+import com.mx.proyecto.Entity.catEstados;
+import com.mx.proyecto.Entity.catRoles;
 
 @Configuration // para decirle que es de configuracion
 @ComponentScan("com.mx.proyecto")//Mapear/buscar entres estos paquetes
@@ -34,7 +36,7 @@ public class ApplicationContextConfig {
 	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sessionBuilder.addProperties(getHibernateProperties());
-		sessionBuilder.addAnnotatedClasses(UsuariosAdmin.class, MisEmpleados.class); // Declarar todas clases Entitys para poder hacer las
+		sessionBuilder.addAnnotatedClasses(UsuariosAdmin.class, MisEmpleados.class, catEstados.class, catRoles.class); // Declarar todas clases Entitys para poder hacer las
 																	// transacciones por Hibernate.
 		return sessionBuilder.buildSessionFactory();
 	}

@@ -3,13 +3,12 @@ $(document).ready(function(){ // Esta parte  es para realizar la carga de la pag
 //	alert("Yo aparezco al cargar a pagina desde el inicio"); // mensaje emergenete -> Es visible --- esto aveces se utitliza para mensajes para el usuario
 //	console.log("Yo soy un mensaje desde la consola del navegador"); // Es para el programador imprimir mensajes de ayuda
 	llenarTablaEmpleados();
-//	
-//	
-//	
-//	$('#btn_AbrirModal').click(function () {
-//    	$('#muestraModal').modal('show'); // muestra el modal
-//    });
+	
+	$('#btn_AbrirModal').click(function () {
+    	$('#muestraModal').modal('show'); // muestra el modal
+    });
 });
+
 
 function llenarTablaEmpleados(){
 
@@ -93,7 +92,7 @@ function llenarTablaEmpleados(){
 		});
 }
 
-// cambiar de idiom ingles - españo el datatble
+// cambiar de idioma ingles - españo el datatble
 var configuracionLenguaje_es = {
 		sLengthMenu: "Mostrar _MENU_ registros por Página",
 		sLoadingRecords : "Cargando...",
@@ -113,3 +112,45 @@ var configuracionLenguaje_es = {
 			sPrevious : "Anterior"
 		}
 };
+
+//Function para registrar informacion del usuario cuando se de clic en el boton de guardar
+$(document).on("click", "#btn_guardar", function(e) {
+	e.preventDefault();
+
+//	alert("Soy el botont guardar");
+
+//	debugger; // mostrarte como se ejecuta el codigo linea x linea
+
+	// las variables de nombreCompleto - edad- direccion - estado - rol -> como estan en el DTO <<<<<<-------- DTO
+	var datosUsuario = {
+		nombreCompleto : $('#nombre_completo_view').val(), // <-- se recoje la informacion ingresada en el campo de texto
+		edad : $('#edad_view').val(),
+		direccion : $('#direccion_view').val(),
+		estado : $('#estado_view').val(),
+		rol : $('#rol_view').val()
+	}
+
+	console.log(datosUsuario);
+
+	// Ajax: Conexion del frontEnd conectarlo con el BackEnd
+	$.ajax({
+		type : "POST",
+		url : "/PuntoVentaV2/usuariosAdminHibernate2/insertUsuarios2",
+		data : JSON.stringify(datosUsuario), // -> es la informacion que se le manda al controller por ser una peticion de tipo POST
+		contentType : "application/json",
+		dataType : "json",
+		success : function(response) {
+
+			console.log(response);
+
+			alert(response.message);
+//			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que
+										// llamarlo una vez eliminado el registro de la peticion sea correcta
+
+			// Hacer el codigo para que el modal se oculte
+
+		}
+	});
+
+});
+

@@ -74,12 +74,17 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Estado *:</label>
-            <input type="text" class="form-control" id="estado_view">
+            <!--  input type="text" class="form-control" id="estado_view"-->
+            <select id="listaDeEstados" class="form-select" aria-label="Default select example">                                               
+	  	 	</select>
+	  	 	
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Rol *:</label>
-            <input type="text" class="form-control" id="rol_view">
-          </div>
+            <!--  input type="text" class="form-control" id="rol_view"-->
+            <select id="listaDeRoles" class="form-select" aria-label="Default select example">                                    
+	  	 	</select>
+	  	  </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -131,10 +136,18 @@
 						<input type="text" class="form-control" id="direccion_actualizar">
 
 						<label for="">Estado: </label> 
+						<!-- 
 						<input type="text" class="form-control" id="estado_actualizar">
+						input type="text" class="form-control" id="estado_view"-->
+			            <select id="listaDeEstados_actualizar" class="form-select" aria-label="Default select example">                                               
+				  	 	</select>
 
 						<label for="">Rol: </label> 
-						<input type="text" class="form-control" id="rol_actualizar">
+						 <!--  
+						 <input type="text" class="form-control" id="rol_actualizar">
+						 input type="text" class="form-control" id="rol_view"-->
+						<select id="listaDeRoles_actualizar" class="form-select" aria-label="Default select example">                                    
+	  	 				</select>
 						
 					</div>
 					<div class="modal-footer">
