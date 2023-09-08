@@ -12,4 +12,5 @@ public interface MisEmpleadosService {
 	ResponseDto getMisEmpleadosM();
 	ResponseDto getMisEmpleadosF();
 	ResponseDto getMisEmpleadosPorRFC(MisEmpleadosDTO rfc);
+	ResponseDto getMisEmpleadosPorID(MisEmpleadosDTO idEmpleado);
 }

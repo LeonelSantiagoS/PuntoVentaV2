@@ -97,4 +97,14 @@ public class MisEmpleadosController {
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
 	}
+
+	// 7.- Busqueda por Id
+	@ResponseBody
+	@RequestMapping(value = "/getMisEmpleadosPorID", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<ResponseDto> getMisEmpleadosPorID(@RequestBody MisEmpleadosDTO idEmpleado) {
+		final HttpHeaders httpHeaders = new HttpHeaders();
+		ResponseDto respuesta = misEmpleadosService.getMisEmpleadosPorID(idEmpleado);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<ResponseDto>(respuesta, httpHeaders, HttpStatus.OK);
+	}
 }

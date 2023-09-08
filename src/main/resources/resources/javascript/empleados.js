@@ -184,3 +184,95 @@ $(document).on("click","#eliminar_empleado", function (e) {
 	});
 });
 
+//Buscar empleado por Id
+$(document).on("click","#editar_empleado",function(e){
+	e.preventDefault();
+	
+//	debugger;
+	var empleado = {
+			idEmpleado: $(this).attr("value")
+		}
+	
+	$.ajax({
+		type: "POST",
+		url: "/PuntoVentaV2/misEmpleados/getMisEmpleadosPorID",
+		data : JSON.stringify(empleado),
+		contentType: "application/json",
+		dataType: "json",
+		success: function(response){
+			
+			console.log(response);
+
+	       $('#idEmpleado_actualizar').val(response.content.idEmpleado);  
+	       $('#nombre_completo_actualizar').val(response.content.nombreCompleto);
+	       $('#rfc_actualizar').val(response.content.rfc);
+	       $('#curp_actualizar').val(response.content.curp);
+	       $('#edad_actualizar').val(response.content.edad);
+	      
+	       var sexo = response.content.sexo;
+	       if (sexo === "F") {
+	         $('#sexo_actualizar').val("F");
+	       } else if (sexo === "M") {
+	         $('#sexo_actualizar').val("M");
+	       }
+	       
+	       $('#direccion_actualizar').val(response.content.direccion);
+	       $('#nss_actualizar').val(response.content.nss);
+	       $('#telefono_actualizar').val(response.content.telefono);
+	       
+	       var activo = response.content.activo;
+	       if (activo === 1) {
+	         $('#activo_actualizar').val("1");
+	       } else if (activo === 0) {
+	         $('#activo_actualizar').val("0");
+	       }
+           	       
+	       $('#modalActualizarEmpleado').modal('show');
+		}
+});
+
+});
+
+//Function para actualizar empleado
+$(document).on("click","#BotonActualizarEmpleado", function (e) {
+	 e.preventDefault();
+	
+//	debugger; // mostrarte como se ejecuta el codigo linea x linea
+	   
+	var datosEmpleado = {
+
+			idEmpleado: $('#idEmpleado_actualizar').val(),
+			  nombreCompleto: $('#nombre_completo_actualizar').val(),
+			  rfc: $('#rfc_actualizar').val(),
+			  curp: $('#curp_actualizar').val(),
+			  edad: $('#edad_actualizar').val(),
+			  sexo: $('#sexo_actualizar').val(),
+			  direccion: $('#direccion_actualizar').val(),
+			  nss: $('#nss_actualizar').val(),
+			  telefono: $('#telefono_actualizar').val(),
+			  activo: $('#activo_actualizar').val()
+			
+	}
+	
+	console.log(datosEmpleado);
+	
+	$.ajax({
+		type: "POST",
+		url: "/PuntoVentaV2/misEmpleados/actualizarMisEmpleados",
+		data : JSON.stringify(datosEmpleado), 	
+		contentType: "application/json",
+		dataType: "json",
+		success: function(response){
+			
+			console.log(response);
+			alert(response.message);
+			
+			$('#modalActualizarEmpleado').modal('hide');
+			
+			llenarTablaEmpleados(); 
+			
+		}
+	});
+	
+});
+

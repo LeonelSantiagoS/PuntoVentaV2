@@ -266,4 +266,33 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 
 	    return validationResponse;
 	}
+
+	@Override
+	public ResponseDto getMisEmpleadosPorID(MisEmpleadosDTO idEmpleado) {
+		ResponseDto response = new ResponseDto();
+		System.out.println(idEmpleado.getIdEmpleado());
+		try {
+			if (idEmpleado.getIdEmpleado() != null) {
+
+				MisEmpleados empleado = misEmpleadosDAO.getById(idEmpleado.getIdEmpleado());
+
+				if (empleado != null) {
+					response.setCode(200);
+					response.setMessage("ID encontrado !!");
+					response.setContent(empleado);
+				} else {
+					response.setCode(404);
+					response.setMessage("ID no encontrado !!!");
+				}
+			} else {
+				response.setCode(400);
+				
+				response.setMessage("El campo ID no puede ser null");
+			}
+		} catch (Exception e) {
+			response.setCode(500);
+			response.setMessage("Ocurrio un error en el metodo getMisEmpleadosPorID: " + e.getMessage());
+		}
+		return response;
+	}
 }

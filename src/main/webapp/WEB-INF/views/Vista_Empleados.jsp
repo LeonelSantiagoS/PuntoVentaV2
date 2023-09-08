@@ -139,6 +139,78 @@
 		</tbody>
 	</table>
 
+<!--  Modal 2 ESTE MODAL ES PARA ACTUALIZAR INFORMACION  -->
+		<div class="modal fade" id="modalActualizarEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-user"></i> ACTUALIZAR EMPLEADO</h5>  
+      </div>
+      <input type="hidden" id="idEmpleado_actualizar">
+      
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="nombre_completo_actualizar" class="form-label">NOMBRE COMPLETO *:</label> 
+          <input type="text" class="form-control" id="nombre_completo_actualizar">
+        </div>
+        
+        <div class="mb-3">
+          <label for="rfc_actualizar" class="form-label">RFC *:</label> 
+          <input type="text" class="form-control" id="rfc_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="curp_actualizar" class="form-label">CURP *:</label> 
+          <input type="text" class="form-control" id="curp_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="edad_actualizar" class="form-label">EDAD *:</label>
+          <input type="text" class="form-control" id="edad_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="sexo_actualizar" class="form-label">SEXO *:</label>
+          <select class="form-select" id="sexo_actualizar">
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="direccion_actualizar" class="form-label">DIRECCION *:</label>
+          <input type="text" class="form-control" id="direccion_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="nss_actualizar" class="form-label">NSS *:</label>
+          <input type="text" class="form-control" id="nss_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="telefono_actualizar" class="form-label">TELEFONO *:</label>
+          <input type="text" class="form-control" id="telefono_actualizar">
+        </div>
+
+        <div class="mb-3">
+          <label for="activo_actualizar" class="form-label">ACTIVO *:</label>
+          <select class="form-select" id="activo_actualizar">
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="BotonActualizarEmpleado" onclick="click">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
+	
+
 
 <!-- javascript - movimiento -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
