@@ -12,6 +12,7 @@ public class MisEmpleadosDTO {
 	private String nss;
 	private Long telefono;
 	private Long activo;
+	
 	public Long getIdEmpleado() {
 		return idEmpleado;
 	}

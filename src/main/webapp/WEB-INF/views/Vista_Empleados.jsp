@@ -40,11 +40,11 @@
 	</button>
 	
 <!--  ESTE ES EL MODAL PARA AGREGAR UN NUEVO REGISTRO -->
-<div class="modal fade" id=muestraModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id=modalEmpleados data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-user"></i> Agregar Nuevo Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-user"></i> AGREGAR NUEVO EMPLEADO</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -52,25 +52,59 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Nombre completo *:</label>
+            <label for="recipient-name" class="col-form-label">NOMBRE COMPLETO *:</label>
             <input type="text" class="form-control" id="nombre_completo_view">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Edad *:</label>
+            <label for="recipient-name" class="col-form-label">RFC *:</label>
+            <input type="text" class="form-control" id="rfc_view">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">CURP *:</label>
+            <input type="text" class="form-control" id="curp_view">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">EDAD *:</label>
             <input type="text" class="form-control" id="edad_view">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Direccion *:</label>
+			  <label for="activo_view" class="col-form-label">SEXO *:</label>
+			  <select class="form-select" id="sexo_view">
+			    <option value="M">Masculino</option>
+			    <option value="F">Femenino</option>
+			  </select>
+			</div>
+          <!--
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">SEXO *:</label>
+            <input type="text" class="form-control" id="sexo_view">
+          </div>
+          -->
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">DIRECCION *:</label>
             <input type="text" class="form-control" id="direccion_view">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Estado *:</label>
-            <input type="text" class="form-control" id="estado_view">
+            <label for="message-text" class="col-form-label">NSS *:</label>
+            <input type="text" class="form-control" id="nss_view">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Rol *:</label>
-            <input type="text" class="form-control" id="rol_view">
+            <label for="message-text" class="col-form-label">TELEFONO *:</label>
+            <input type="text" class="form-control" id="telefono_view">
           </div>
+          <!--
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">ACTIVO *:</label>
+            <input type="text" class="form-control" id="activo_view">
+          </div>
+          -->
+          <div class="form-group">
+			  <label for="activo_view" class="col-form-label">USUARIO *:</label>
+			  <select class="form-select" id="activo_view">
+			    <option value="1">Activo</option>
+			    <option value="0">Inactivo</option>
+			  </select>
+			</div>
         </form>
       </div>
       <div class="modal-footer">

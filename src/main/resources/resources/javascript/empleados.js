@@ -5,7 +5,7 @@ $(document).ready(function(){ // Esta parte  es para realizar la carga de la pag
 	llenarTablaEmpleados();
 	
 	$('#btn_AbrirModal').click(function () {
-    	$('#muestraModal').modal('show'); // muestra el modal
+    	$('#modalEmpleados').modal('show'); // muestra el modal
     });
 });
 
@@ -116,27 +116,25 @@ var configuracionLenguaje_es = {
 //Function para registrar informacion del usuario cuando se de clic en el boton de guardar
 $(document).on("click", "#btn_guardar", function(e) {
 	e.preventDefault();
-
-//	alert("Soy el botont guardar");
-
 //	debugger; // mostrarte como se ejecuta el codigo linea x linea
 
-	// las variables de nombreCompleto - edad- direccion - estado - rol -> como estan en el DTO <<<<<<-------- DTO
 	var datosUsuario = {
-		nombreCompleto : $('#nombre_completo_view').val(), // <-- se recoje la informacion ingresada en el campo de texto
+		nombreCompleto : $('#nombre_completo_view').val(),
+		rfc : $('#rfc_view').val(),
+		curp : $('#curp_view').val(),
 		edad : $('#edad_view').val(),
+		sexo : $('#sexo_view').val(),
 		direccion : $('#direccion_view').val(),
-		estado : $('#estado_view').val(),
-		rol : $('#rol_view').val()
+		nss : $('#nss_view').val(),
+		telefono : $('#telefono_view').val(),
+		activo : $('#activo_view').val()
 	}
-
 	console.log(datosUsuario);
-
 	// Ajax: Conexion del frontEnd conectarlo con el BackEnd
 	$.ajax({
 		type : "POST",
-		url : "/PuntoVentaV2/usuariosAdminHibernate2/insertUsuarios2",
-		data : JSON.stringify(datosUsuario), // -> es la informacion que se le manda al controller por ser una peticion de tipo POST
+		url : "/PuntoVentaV2/misEmpleados/insertMisEmpleados",
+		data : JSON.stringify(datosUsuario),
 		contentType : "application/json",
 		dataType : "json",
 		success : function(response) {
@@ -144,11 +142,18 @@ $(document).on("click", "#btn_guardar", function(e) {
 			console.log(response);
 
 			alert(response.message);
-//			llenarTablaUsuariosAdmin(); // Esta es la function que hace el llenado de la tabla entonces hay que
-										// llamarlo una vez eliminado el registro de la peticion sea correcta
-
-			// Hacer el codigo para que el modal se oculte
-
+			llenarTablaEmpleados();
+			
+			$('#nombre_completo_view').val("");
+			$('#rfc_view').val("");
+			$('#curp_view').val("");
+			$('#edad_view').val("");
+			$('#sexo_view').val("");
+			$('#direccion_view').val("");
+			$('#nss_view').val("");
+			$('#telefono_view').val("");
+			$('#activo_view').val("");
+			 $('#modalEmpleados').modal('hide');
 		}
 	});
 
