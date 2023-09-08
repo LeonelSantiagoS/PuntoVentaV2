@@ -16,13 +16,13 @@ function llenarTablaEmpleados(){
 	
 //	debugger; // esto lo que hace es ir saltando en el codigo linea x linea
 	var table = $('#id_tablaEmpleados').DataTable();
-	table.destroy(); // Destruir la informacion que ya contiene la tabla
+	table.destroy();
 	
-	$.ajax({// Ajax = nos ayuda a realizar el consumo de nuestros servicios que se encuentran en el controlador / Hacer el enlace del FrontEnd - BackEnd
+	$.ajax({
 		type: "GET",
 		url: '/PuntoVentaV2/misEmpleados/getMisEmpleados',
 		dataType: "json",
-		success: function(response){  // response =  listUsuarios que vienen desde la DB, code=200 y mensaje="......."
+		success: function(response){ 
 			
 //			console.log(response);
 			console.log(response.content);	
@@ -33,8 +33,8 @@ function llenarTablaEmpleados(){
 				columns:[
 					{
 						data: "idEmpleado",
-						"searchable" : false, // no se puede filtrar por el ide xq esta en false
-						"visible": false,	// Este columna no es visible					
+						"searchable" : false, 
+						"visible": false,				
 					},					
 					{
 						data: "nombreCompleto",
@@ -69,7 +69,7 @@ function llenarTablaEmpleados(){
 						"orderable" : false, // no se puedan ordenas por los botones
 						data: function(row, type, set){
 							var a;
-							a = `<a href="#" id="eliminar_empleado" class="btn btn-danger btn-remove" value="${row.idUser}"><i class="fas fa-trash-alt"></i></a>`;
+							a = `<a href="#" id="eliminar_empleado" class="btn btn-danger btn-remove" value="${row.idEmpleado}"><i class="fas fa-trash-alt"></i></a>`;
 							
 							return a;
 						}						
@@ -79,7 +79,7 @@ function llenarTablaEmpleados(){
 						"orderable" : false,
 						data: function(row, type, set){
 							var a;
-							a = `<a href="#" id="editar_empleado" class="btn btn-success" value="${row.idUser}"><i class="fa fa-edit"></i></a>`;
+							a = `<a href="#" id="editar_empleado" class="btn btn-success" value="${row.idEmpleado}"><i class="fa fa-edit"></i></a>`;
 							
 							return a;
 						}						
@@ -113,7 +113,7 @@ var configuracionLenguaje_es = {
 		}
 };
 
-//Function para registrar informacion del usuario cuando se de clic en el boton de guardar
+//Function para registrar empleado
 $(document).on("click", "#btn_guardar", function(e) {
 	e.preventDefault();
 //	debugger; // mostrarte como se ejecuta el codigo linea x linea
@@ -157,5 +157,30 @@ $(document).on("click", "#btn_guardar", function(e) {
 		}
 	});
 
+});
+
+//funcion para eliminar empleado
+$(document).on("click","#eliminar_empleado", function (e) {
+	 e.preventDefault();
+//	debugger; 
+
+	var idEmpleado = {
+			idEmpleado: $(this).attr("value")
+	}
+	
+	console.log(idEmpleado);
+
+	$.ajax({												 
+		type: "POST",
+		url: "/PuntoVentaV2/misEmpleados/eliminarMisEmpleados",
+		data : JSON.stringify(idEmpleado),
+		contentType: "application/json",
+		dataType: "json", 
+		success: function(response){
+			console.log(response); 
+			alert(response.message);
+			llenarTablaEmpleados();
+		}
+	});
 });
 

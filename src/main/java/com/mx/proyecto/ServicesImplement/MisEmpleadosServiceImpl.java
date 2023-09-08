@@ -92,6 +92,7 @@ public class MisEmpleadosServiceImpl implements MisEmpleadosService{
 
 				if (empleado != null) {
 					if (empleado.getActivo() == 0) {
+						System.out.println(empleado.getActivo());
 						misEmpleadosDAO.delete(idUser.getIdEmpleado());
 						response.setCode(200);
 						response.setMessage("Empleado eliminado correctamente");
